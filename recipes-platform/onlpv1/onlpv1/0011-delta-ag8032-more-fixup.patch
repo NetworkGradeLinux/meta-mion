@@ -1,0 +1,34 @@
+From 71f42fa0600ac4b47a0a74657bef608430e74d33 Mon Sep 17 00:00:00 2001
+From: Tobias Jungel <tobias.jungel@bisdn.de>
+Date: Thu, 11 Apr 2019 23:25:50 +0200
+Subject: [PATCH 11/12] delta-ag8032: more fixup
+
+---
+ .../x86-64-delta-ag8032/onlp/builds/src/module/src/fani.c     | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/src/module/src/fani.c b/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/src/module/src/fani.c
+index 15ee9f61..7be44393 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/src/module/src/fani.c
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/src/module/src/fani.c
+@@ -337,7 +337,7 @@ int onlp_fani_info_get(onlp_oid_t id, onlp_fan_info_t* info)
+ int
+ onlp_fani_rpm_set(onlp_oid_t id, int rpm)
+ {
+-	int error;
++	int error = 0;
+ 	plat_fan_t *fan;
+ 	int fid;
+ 
+@@ -369,7 +369,7 @@ onlp_fani_rpm_set(onlp_oid_t id, int rpm)
+ 
+ int onlp_fani_percentage_set(onlp_oid_t id, int p)
+ {
+-	int error;
++	int error = 0;
+ 	plat_fan_t *fan;
+ 	int fid;
+ 
+-- 
+2.20.1
+

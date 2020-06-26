@@ -1,0 +1,149 @@
+From c47b8f8e70dec8f7905470788297a1adc4a8a0b9 Mon Sep 17 00:00:00 2001
+From: Tobias Jungel <tobias.jungel@bisdn.de>
+Date: Thu, 11 Apr 2019 21:01:35 +0200
+Subject: [PATCH 07/12] as5712-54x: fix -Werror=sizeof-pointer-memaccess
+
+p/builds/src/module/src/platform_lib.c:156:54: error: argument to
+'sizeof' in 'strncpy' call is the same expression as the source; did you
+mean to use the size of the destination?
+[-Werror=sizeof-pointer-memaccess]
+|                  strncpy(modelname, model_name, sizeof(model_name));
+|                                                       ^
+---
+ .../onlp/builds/src/module/src/platform_lib.c | 44 +++++++++----------
+ 1 file changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c b/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c
+index 8055f9c4..9885a808 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c
+@@ -40,20 +40,20 @@ int deviceNodeWrite(char *filename, char *buffer, int buf_size, int data_len)
+ 
+     if ((buffer == NULL) || (buf_size < 0)) {
+         return -1;
+-    }  
++    }
+ 
+-    if ((fd = open(filename, O_WRONLY, S_IWUSR)) == -1) {    
+-        return -1;  
++    if ((fd = open(filename, O_WRONLY, S_IWUSR)) == -1) {
++        return -1;
+     }
+ 
+-    if ((len = write(fd, buffer, buf_size)) < 0) {    
+-        close(fd);    
++    if ((len = write(fd, buffer, buf_size)) < 0) {
++        close(fd);
+         return -1;
+     }
+ 
+     if ((close(fd) == -1)) {
+         return -1;
+-    }  
++    }
+ 
+     if ((len > buf_size) || (data_len != 0 && len != data_len)) {
+         return -1;
+@@ -71,25 +71,25 @@ int deviceNodeWriteInt(char *filename, int value, int data_len)
+ }
+ 
+ int deviceNodeReadBinary(char *filename, char *buffer, int buf_size, int data_len)
+-    {    
++    {
+     int fd;
+     int len;
+ 
+     if ((buffer == NULL) || (buf_size < 0)) {
+         return -1;
+-    }  
++    }
+ 
+     if ((fd = open(filename, O_RDONLY)) == -1) {
+-        return -1;  
++        return -1;
+     }
+ 
+     if ((len = read(fd, buffer, buf_size)) < 0) {
+-        close(fd);    
++        close(fd);
++        return -1;
++    }
++
++    if ((close(fd) == -1)) {
+         return -1;
+-    }  
+-    
+-    if ((close(fd) == -1)) {    
+-        return -1;  
+     }
+ 
+     if ((len > buf_size) || (data_len != 0 && len != data_len)) {
+@@ -106,7 +106,7 @@ int deviceNodeReadString(char *filename, char *buffer, int buf_size, int data_le
+     if (data_len >= buf_size || data_len < 0) {
+         return -1;
+     }
+-	
++
+ 	ret = deviceNodeReadBinary(filename, buffer, buf_size-1, data_len);
+ 
+     if (ret == 0) {
+@@ -117,7 +117,7 @@ int deviceNodeReadString(char *filename, char *buffer, int buf_size, int data_le
+             buffer[buf_size-1] = '\0';
+         }
+     }
+-    
++
+     return ret;
+ }
+ 
+@@ -135,25 +135,25 @@ psu_type_t get_psu_type(int id, char* modelname, int modelname_len)
+     if (deviceNodeReadString(node, model_name, sizeof(model_name), 0) == 0) {
+         if (strncmp(model_name, "CPR-4011-4M11", STRLEN("CPR-4011-4M11")) == 0) {
+             if (modelname) {
+-            strncpy(modelname, model_name, sizeof(model_name));
++            strncpy(modelname, model_name, sizeof(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_F2B;
+         }
+         else if (strncmp(model_name, "CPR-4011-4M21", STRLEN("CPR-4011-4M21")) == 0) {
+             if (modelname) {
+-            strncpy(modelname, model_name, sizeof(model_name));
++            strncpy(modelname, model_name, sizeof(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_B2F;
+         }
+         else if (strncmp(model_name, "CPR-6011-2M11", STRLEN("CPR-6011-2M11")) == 0) {
+             if (modelname) {
+-                strncpy(modelname, model_name, sizeof(model_name));
++                strncpy(modelname, model_name, sizeof(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_F2B;
+         }
+         else if (strncmp(model_name, "CPR-6011-2M21", STRLEN("CPR-6011-2M21")) == 0) {
+             if (modelname) {
+-                strncpy(modelname, model_name, sizeof(model_name));
++                strncpy(modelname, model_name, sizeof(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_B2F;
+         }
+@@ -161,7 +161,7 @@ psu_type_t get_psu_type(int id, char* modelname, int modelname_len)
+ 
+     /* Check 3Y-Power AC model name */
+     memset(model_name, 0, sizeof(model_name));
+-    node = (id == PSU1_ID) ? PSU1_AC_3YPOWER_EEPROM_NODE(psu_model_name) : PSU2_AC_3YPOWER_EEPROM_NODE(psu_model_name);	
++    node = (id == PSU1_ID) ? PSU1_AC_3YPOWER_EEPROM_NODE(psu_model_name) : PSU2_AC_3YPOWER_EEPROM_NODE(psu_model_name);
+ 
+     if (deviceNodeReadString(node, model_name, sizeof(model_name), 0) == 0) {
+         if (strncmp(model_name, "YM-2401JCR", STRLEN("YM-2401JCR")) == 0) {
+@@ -208,7 +208,7 @@ int psu_ym2401_pmbus_info_get(int id, char *node, int *value)
+ {
+     int  ret = 0;
+     char path[64] = {0};
+-    
++
+     *value = 0;
+ 
+     if (PSU1_ID == id) {
+-- 
+2.20.1
+

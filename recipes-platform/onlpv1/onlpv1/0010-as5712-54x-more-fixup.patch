@@ -1,0 +1,46 @@
+From b5debec02986b0f910a5bc11b57817a58d316749 Mon Sep 17 00:00:00 2001
+From: Tobias Jungel <tobias.jungel@bisdn.de>
+Date: Thu, 11 Apr 2019 23:25:26 +0200
+Subject: [PATCH 10/12] as5712-54x: more fixup
+
+---
+ .../onlp/builds/src/module/src/platform_lib.c             | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c b/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c
+index 9885a808..aa58be4c 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/src/module/src/platform_lib.c
+@@ -135,25 +135,25 @@ psu_type_t get_psu_type(int id, char* modelname, int modelname_len)
+     if (deviceNodeReadString(node, model_name, sizeof(model_name), 0) == 0) {
+         if (strncmp(model_name, "CPR-4011-4M11", STRLEN("CPR-4011-4M11")) == 0) {
+             if (modelname) {
+-            strncpy(modelname, model_name, sizeof(modelname));
++            strncpy(modelname, model_name, strlen(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_F2B;
+         }
+         else if (strncmp(model_name, "CPR-4011-4M21", STRLEN("CPR-4011-4M21")) == 0) {
+             if (modelname) {
+-            strncpy(modelname, model_name, sizeof(modelname));
++            strncpy(modelname, model_name, strlen(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_B2F;
+         }
+         else if (strncmp(model_name, "CPR-6011-2M11", STRLEN("CPR-6011-2M11")) == 0) {
+             if (modelname) {
+-                strncpy(modelname, model_name, sizeof(modelname));
++                strncpy(modelname, model_name, strlen(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_F2B;
+         }
+         else if (strncmp(model_name, "CPR-6011-2M21", STRLEN("CPR-6011-2M21")) == 0) {
+             if (modelname) {
+-                strncpy(modelname, model_name, sizeof(modelname));
++                strncpy(modelname, model_name, strlen(modelname));
+             }
+             return PSU_TYPE_AC_COMPUWARE_B2F;
+         }
+-- 
+2.20.1
+

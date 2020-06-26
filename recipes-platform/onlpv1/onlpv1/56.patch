@@ -1,0 +1,69 @@
+From dc5265295996f530ee0844fcb2f647374f9c1d73 Mon Sep 17 00:00:00 2001
+From: Tobias Jungel <tobias.jungel@bisdn.de>
+Date: Sat, 5 May 2018 15:36:26 +0200
+Subject: [PATCH] make compilation work on a recent gcc and glibc
+
+* use c standard function rand instead of random
+* __func__ instead of __FUNCTION__
+---
+ modules/AIM/module/src/posix/aim_sem_posix.c | 2 +-
+ modules/AIM/utest/main.c                     | 2 +-
+ modules/AIM/utest/sem_test.c                 | 5 ++---
+ 3 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/modules/AIM/module/src/posix/aim_sem_posix.c b/modules/AIM/module/src/posix/aim_sem_posix.c
+index 74cb242..3cc8897 100644
+--- a/modules/AIM/module/src/posix/aim_sem_posix.c
++++ b/modules/AIM/module/src/posix/aim_sem_posix.c
+@@ -67,7 +67,7 @@ aim_sem_create(int count)
+ }
+ 
+ 
+-#define VALIDATE(_sem) AIM_TRUE_OR_DIE(_sem != NULL, "null semaphore passed to  %s", __FUNCTION__)
++#define VALIDATE(_sem) AIM_TRUE_OR_DIE(_sem != NULL, "null semaphore passed to  %s", __func__)
+ 
+ void
+ aim_sem_destroy(aim_sem_t sem)
+diff --git a/modules/AIM/utest/main.c b/modules/AIM/utest/main.c
+index ed9e30d..e04f485 100644
+--- a/modules/AIM/utest/main.c
++++ b/modules/AIM/utest/main.c
+@@ -45,7 +45,7 @@ static void
+ test_logf(void* cookie, aim_log_flag_t flag, const char* str)
+ {
+     printf("%s: cookie 0x%p, flag %s, msg %s",
+-           __FUNCTION__, cookie, aim_log_flag_name(flag), str);
++           __func__, cookie, aim_log_flag_name(flag), str);
+ }
+ 
+ #define LOG_MACROS                               \
+diff --git a/modules/AIM/utest/sem_test.c b/modules/AIM/utest/sem_test.c
+index 702d447..fbec4e2 100644
+--- a/modules/AIM/utest/sem_test.c
++++ b/modules/AIM/utest/sem_test.c
+@@ -16,7 +16,6 @@
+  * License.
+  *
+  ***************************************************************/
+-#define _BSD_SOURCE
+ 
+ #include <AIM/aim.h>
+ #include <AIM/aim_sem.h>
+@@ -103,7 +102,7 @@ sem_test_multiple(uint32_t flags, int giving_threads, int taking_threads)
+         t->take = take;
+         t->give = give;
+         sprintf(t->name, "(1:%.4d)", i);
+-        t->timeout = ( (random() % 10) + 1 ) * 100000;
++        t->timeout = ( (rand() % 10) + 1 ) * 100000;
+         t->timeout_required = 1;
+         t->acquired = &acquired;
+         pthread_create(&t->thread, NULL, sem_test_thread__, t);
+@@ -121,7 +120,7 @@ sem_test_multiple(uint32_t flags, int giving_threads, int taking_threads)
+         t->take = give;
+         t->give = NULL;
+         sprintf(t->name, "(2:%.4d)", i);
+-        t->timeout = 2000000 + (( (random() % 10) + 1 ) * 100000);
++        t->timeout = 2000000 + (( (rand() % 10) + 1 ) * 100000);
+         t->give = 0;
+         t->timeout_required = 0;
+         t->acquired = &acquired;

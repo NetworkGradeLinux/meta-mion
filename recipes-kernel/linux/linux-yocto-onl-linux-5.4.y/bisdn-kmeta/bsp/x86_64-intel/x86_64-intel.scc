@@ -1,0 +1,7 @@
+define KMACHINE x86_64-intel
+define KTYPE standard
+define KARCH x86
+
+patch 0002-driver-support-intel-igb-bcm5461S-phy.patch
+
+kconf hardware x86_64-intel.cfg

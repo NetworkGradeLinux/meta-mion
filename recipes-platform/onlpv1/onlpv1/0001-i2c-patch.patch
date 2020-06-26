@@ -1,0 +1,1329 @@
+From 3cb0851ab4c72db50857444db3f8fd0bb1585426 Mon Sep 17 00:00:00 2001
+From: Tobias Jungel <tobias.jungel@bisdn.de>
+Date: Tue, 5 Jun 2018 10:45:41 +0200
+Subject: [PATCH 1/6] i2c-patch
+
+---
+ packages/base/any/onlp/builds/onlp/Makefile        |  2 +-
+ packages/base/any/onlp/builds/onlpd/Makefile       |  2 +-
+ .../onlplib/module/inc/onlplib/onlplib_config.h    | 14 +++++++-------
+ .../base/any/onlp/src/onlplib/module/src/i2c.c     |  3 ++-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/src/module/src/platform_lib.c      |  3 ++-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/src/module/src/platform_lib.c      |  3 ++-
+ .../onlp/builds/src/module/src/sfpi.c              |  3 ++-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../arm-qemu-armv7a/onlp/builds/onlpdump/Makefile  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ .../onlp/builds/onlpdump/Makefile                  |  2 +-
+ 94 files changed, 104 insertions(+), 100 deletions(-)
+
+diff --git a/packages/base/any/onlp/builds/onlp/Makefile b/packages/base/any/onlp/builds/onlp/Makefile
+index fb0df874..1f09dcb9 100644
+--- a/packages/base/any/onlp/builds/onlp/Makefile
++++ b/packages/base/any/onlp/builds/onlp/Makefile
+@@ -48,7 +48,7 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_PVS_SYSLOG=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_DAEMONIZE=1
+ 
+ GLOBAL_CFLAGS += -fPIC
+-GLOBAL_LINK_LIBS += -lpthread $(LIBONLP_PLATFORM) $(LIBONLP_PLATFORM_DEFAULTS)
++GLOBAL_LINK_LIBS += -lpthread -llibi2c $(LIBONLP_PLATFORM) $(LIBONLP_PLATFORM_DEFAULTS)
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/base/any/onlp/builds/onlpd/Makefile b/packages/base/any/onlp/builds/onlpd/Makefile
+index 258bd9f7..6b22fbc6 100644
+--- a/packages/base/any/onlp/builds/onlpd/Makefile
++++ b/packages/base/any/onlp/builds/onlpd/Makefile
+@@ -44,7 +44,7 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_DAEMONIZE=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_PVS_SYSLOG=1
+ 
+ GLOBAL_LINK_LIBS += $(LIBONLP_SO) -Wl,--unresolved-symbols=ignore-in-shared-libs
+-GLOBAL_LINK_LIBS += -lpthread -lm -lrt
++GLOBAL_LINK_LIBS += -lpthread -lm -lrt -llibi2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/base/any/onlp/src/onlplib/module/inc/onlplib/onlplib_config.h b/packages/base/any/onlp/src/onlplib/module/inc/onlplib/onlplib_config.h
+index 06084d02..7dfe7ea8 100644
+--- a/packages/base/any/onlp/src/onlplib/module/inc/onlplib/onlplib_config.h
++++ b/packages/base/any/onlp/src/onlplib/module/inc/onlplib/onlplib_config.h
+@@ -1,21 +1,21 @@
+ /************************************************************
+  * <bsn.cl fy=2014 v=onl>
+- * 
+- *        Copyright 2014, 2015 Big Switch Networks, Inc.       
+- * 
++ *
++ *        Copyright 2014, 2015 Big Switch Networks, Inc.
++ *
+  * Licensed under the Eclipse Public License, Version 1.0 (the
+  * "License"); you may not use this file except in compliance
+  * with the License. You may obtain a copy of the License at
+- * 
++ *
+  *        http://www.eclipse.org/legal/epl-v10.html
+- * 
++ *
+  * Unless required by applicable law or agreed to in writing,
+  * software distributed under the License is distributed on an
+  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+  * either express or implied. See the License for the specific
+  * language governing permissions and limitations under the
+  * License.
+- * 
++ *
+  * </bsn.cl>
+  ************************************************************
+  *
+@@ -148,7 +148,7 @@
+ /**
+  * ONLPLIB_CONFIG_I2C_USE_CUSTOM_HEADER
+  *
+- * Include the custom i2c header (include/linux/i2c-devices.h) to avoid conflicts with the kernel and i2c-dev packages. */
++ * Include the custom i2c header (include/i2c/smbus.h) to avoid conflicts with the kernel and i2c-dev packages. */
+ 
+ 
+ #ifndef ONLPLIB_CONFIG_I2C_USE_CUSTOM_HEADER
+diff --git a/packages/base/any/onlp/src/onlplib/module/src/i2c.c b/packages/base/any/onlp/src/onlplib/module/src/i2c.c
+index f5d06955..7c8e0e93 100644
+--- a/packages/base/any/onlp/src/onlplib/module/src/i2c.c
++++ b/packages/base/any/onlp/src/onlplib/module/src/i2c.c
+@@ -31,7 +31,8 @@
+ #include <unistd.h>
+ 
+ #if ONLPLIB_CONFIG_I2C_USE_CUSTOM_HEADER == 1
+-#include <linux/i2c-devices.h>
++#include <i2c/smbus.h>
++#include <linux/i2c-dev.h>
+ #else
+ #include <linux/i2c-dev.h>
+ #endif
+diff --git a/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-30/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-30/onlp/builds/onlpdump/Makefile
+index f6a0f5dc..8ad57c3d 100644
+--- a/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-30/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-30/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-54/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-54/onlp/builds/onlpdump/Makefile
+index f6a0f5dc..8ad57c3d 100644
+--- a/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-54/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/armel/arm-accton-as4610/arm-accton-as4610-54/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/onlpdump/Makefile
+index 3baa88fa..db0183f8 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/src/module/src/platform_lib.c b/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/src/module/src/platform_lib.c
+index 0865f20a..3bbdead6 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/src/module/src/platform_lib.c
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as4600-54t/onlp/builds/src/module/src/platform_lib.c
+@@ -28,7 +28,8 @@
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <fcntl.h>
+-#include <linux/i2c-devices.h>
++#include <i2c/smbus.h>
++#include <linux/i2c-dev.h>
+ #include "platform_lib.h"
+ 
+ #define MAX_I2C_BUSSES               2
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/onlpdump/Makefile
+index 5b542b87..015b9dec 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/platform_lib.c b/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/platform_lib.c
+index 7816b3bb..a7ff0f8d 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/platform_lib.c
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/platform_lib.c
+@@ -29,7 +29,8 @@
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <fcntl.h>
+-#include <linux/i2c-devices.h>
++#include <i2c/smbus.h>
++#include <linux/i2c-dev.h>
+ #include "platform_lib.h"
+ 
+ #define CPLD_BASE_ADDRESS       0xEA000000
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/sfpi.c b/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/sfpi.c
+index 11573775..af680113 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/sfpi.c
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as5610-52x/onlp/builds/src/module/src/sfpi.c
+@@ -24,7 +24,8 @@
+  *
+  ***********************************************************/
+ #include <onlp/platformi/sfpi.h>
+-#include <linux/i2c-devices.h>
++#include <i2c/smbus.h>
++#include <linux/i2c-dev.h>
+ 
+ #include <fcntl.h> /* For O_RDWR && open */
+ #include <stdio.h>
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as5710-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/powerpc/powerpc-accton-as5710-54x/onlp/builds/onlpdump/Makefile
+index 1adcdd26..3a4e5e8f 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as5710-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as5710-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/powerpc/powerpc-accton-as6700-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/powerpc/powerpc-accton-as6700-32x/onlp/builds/onlpdump/Makefile
+index a06b4ad1..369ee539 100644
+--- a/packages/platforms/accton/powerpc/powerpc-accton-as6700-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/powerpc/powerpc-accton-as6700-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5512-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5512-54x/onlp/builds/onlpdump/Makefile
+index 68f2a998..9027b3c0 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5512-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5512-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/onlpdump/Makefile
+index 6a32762f..9cbaf513 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5712-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5812-54t/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5812-54t/onlp/builds/onlpdump/Makefile
+index cfc7ccb9..8117f953 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5812-54t/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5812-54t/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5812-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5812-54x/onlp/builds/onlpdump/Makefile
+index 5e95fa3c..8e45c168 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5812-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5812-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5822-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5822-54x/onlp/builds/onlpdump/Makefile
+index 60a9e361..fc28b510 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5822-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5822-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5912-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5912-54x/onlp/builds/onlpdump/Makefile
+index 94ded3f9..1ac12d56 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5912-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5912-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5912-54xk/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5912-54xk/onlp/builds/onlpdump/Makefile
+index 5435cc0d..47fca4a8 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5912-54xk/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5912-54xk/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5916-26xb/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5916-26xb/onlp/builds/onlpdump/Makefile
+index 40aae7b3..48bffb8f 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5916-26xb/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5916-26xb/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54x/onlp/builds/onlpdump/Makefile
+index 0c41fbc0..7945147f 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xk/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xk/onlp/builds/onlpdump/Makefile
+index d746bb0f..42eed6db 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xk/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xk/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xks/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xks/onlp/builds/onlpdump/Makefile
+index aa449fa6..e70057ba 100755
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xks/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xks/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xm/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xm/onlp/builds/onlpdump/Makefile
+index 0f248885..ef46b9df 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xm/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as5916-54xm/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as6712-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as6712-32x/onlp/builds/onlpdump/Makefile
+index 1f3700a8..8e3541d3 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as6712-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as6712-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as6812-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as6812-32x/onlp/builds/onlpdump/Makefile
+index b7fee5fc..470c1e4e 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as6812-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as6812-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7112-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7112-54x/onlp/builds/onlpdump/Makefile
+index 4efbb417..037ecd59 100755
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7112-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7112-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7312-54x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7312-54x/onlp/builds/onlpdump/Makefile
+index 728730bb..25b14a2e 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7312-54x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7312-54x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7312-54xs/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7312-54xs/onlp/builds/onlpdump/Makefile
+index 712819b6..37285f89 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7312-54xs/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7312-54xs/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7316-26xb/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7316-26xb/onlp/builds/onlpdump/Makefile
+index 40787128..cbcc40ab 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7316-26xb/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7316-26xb/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7326-56x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7326-56x/onlp/builds/onlpdump/Makefile
+index 10ffd95b..218ef079 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7326-56x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7326-56x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7512-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7512-32x/onlp/builds/onlpdump/Makefile
+index 12a4b780..5ab44ce1 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7512-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7512-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7712-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7712-32x/onlp/builds/onlpdump/Makefile
+index b9516610..babe978f 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7712-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7712-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7716-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7716-32x/onlp/builds/onlpdump/Makefile
+index a6450e34..b17bc367 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7716-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7716-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7726-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7726-32x/onlp/builds/onlpdump/Makefile
+index ab39002a..68de4ee9 100755
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7726-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7726-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-as7816-64x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-as7816-64x/onlp/builds/onlpdump/Makefile
+index ad16e632..67cd8159 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-as7816-64x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-as7816-64x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-csp9250/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-csp9250/onlp/builds/onlpdump/Makefile
+index 78e0ca0a..35d0bf3e 100755
+--- a/packages/platforms/accton/x86-64/x86-64-accton-csp9250/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-csp9250/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-wedge100-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-wedge100-32x/onlp/builds/onlpdump/Makefile
+index 34d5a52a..428ef4fc 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-wedge100-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-wedge100-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-32x/onlp/builds/onlpdump/Makefile
+index f828c871..15554bb3 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-65x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-65x/onlp/builds/onlpdump/Makefile
+index 4cc10ffb..55248d9a 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-65x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-wedge100bf-65x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/accton/x86-64/x86-64-accton-wedge100s-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/accton/x86-64/x86-64-accton-wedge100s-32x/onlp/builds/onlpdump/Makefile
+index 1aa18ee5..8cae5e0a 100644
+--- a/packages/platforms/accton/x86-64/x86-64-accton-wedge100s-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/accton/x86-64/x86-64-accton-wedge100s-32x/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/alphanetworks/x86-64/x86-64-alphanetworks-snx60a0-486f/onlp/builds/onlpdump/Makefile b/packages/platforms/alphanetworks/x86-64/x86-64-alphanetworks-snx60a0-486f/onlp/builds/onlpdump/Makefile
+index 7035ea16..845f0e0c 100644
+--- a/packages/platforms/alphanetworks/x86-64/x86-64-alphanetworks-snx60a0-486f/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/alphanetworks/x86-64/x86-64-alphanetworks-snx60a0-486f/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/celestica/x86-64/x86-64-cel-redstone-xp/onlp/builds/onlpdump/Makefile b/packages/platforms/celestica/x86-64/x86-64-cel-redstone-xp/onlp/builds/onlpdump/Makefile
+index e1816c0c..ac0bd1d6 100644
+--- a/packages/platforms/celestica/x86-64/x86-64-cel-redstone-xp/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/celestica/x86-64/x86-64-cel-redstone-xp/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c-poe/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c-poe/onlp/builds/onlpdump/Makefile
+index 3fe979f3..e2ef067c 100755
+--- a/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c-poe/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c-poe/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c/onlp/builds/onlpdump/Makefile
+index 3fe979f3..e2ef067c 100644
+--- a/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/armel/arm-delta-ag6248c/arm-delta-ag6248c/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag5648/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag5648/onlp/builds/onlpdump/Makefile
+index 69f7730b..5992b0d6 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag5648/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag5648/onlp/builds/onlpdump/Makefile
+@@ -41,7 +41,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag7648/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag7648/onlp/builds/onlpdump/Makefile
+index 9a3129c0..464d6816 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag7648/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag7648/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag7648c/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag7648c/onlp/builds/onlpdump/Makefile
+index bc539466..1bbcaa89 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag7648c/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag7648c/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/onlpdump/Makefile
+index 833ae998..1fb8374e 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag8032/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag9032v1/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag9032v1/onlp/builds/onlpdump/Makefile
+index d8d00a81..286c4f17 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag9032v1/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag9032v1/onlp/builds/onlpdump/Makefile
+@@ -41,7 +41,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag9032v2/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag9032v2/onlp/builds/onlpdump/Makefile
+index 849c7a0d..24cf243d 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag9032v2/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag9032v2/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ag9064/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ag9064/onlp/builds/onlpdump/Makefile
+index 8cd72b47..e005d2ce 100755
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ag9064/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ag9064/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-agc5648s/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-agc5648s/onlp/builds/onlpdump/Makefile
+index dedb03d0..92fa308b 100755
+--- a/packages/platforms/delta/x86-64/x86-64-delta-agc5648s/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-agc5648s/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-agc7648a/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-agc7648a/onlp/builds/onlpdump/Makefile
+index 286d2150..b0297cc0 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-agc7648a/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-agc7648a/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-ak7448/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-ak7448/onlp/builds/onlpdump/Makefile
+index cfb370a0..495a0e48 100644
+--- a/packages/platforms/delta/x86-64/x86-64-delta-ak7448/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-ak7448/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/delta/x86-64/x86-64-delta-wb2448/onlp/builds/onlpdump/Makefile b/packages/platforms/delta/x86-64/x86-64-delta-wb2448/onlp/builds/onlpdump/Makefile
+index 85ac6f8d..b7094d73 100755
+--- a/packages/platforms/delta/x86-64/x86-64-delta-wb2448/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/delta/x86-64/x86-64-delta-wb2448/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9100/onlp/builds/onlpdump/Makefile b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9100/onlp/builds/onlpdump/Makefile
+index da86108f..f5f6010e 100755
+--- a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9100/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9100/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9180-32x/onlp/builds/onlpdump/Makefile b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9180-32x/onlp/builds/onlpdump/Makefile
+index 399c4b02..3335c67b 100755
+--- a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9180-32x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9180-32x/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9230-64x/onlp/builds/onlpdump/Makefile b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9230-64x/onlp/builds/onlpdump/Makefile
+index e4f319cb..f4b1c12e 100755
+--- a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9230-64x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9230-64x/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9280-64x/onlp/builds/onlpdump/Makefile b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9280-64x/onlp/builds/onlpdump/Makefile
+index 84222f31..c8e6ca64 100755
+--- a/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9280-64x/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/ingrasys/x86-64/x86-64-ingrasys-s9280-64x/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/inventec/x86-64/x86-64-inventec-d6254qs/onlp/builds/onlpdump/Makefile b/packages/platforms/inventec/x86-64/x86-64-inventec-d6254qs/onlp/builds/onlpdump/Makefile
+index 34a494be..179cd716 100644
+--- a/packages/platforms/inventec/x86-64/x86-64-inventec-d6254qs/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/inventec/x86-64/x86-64-inventec-d6254qs/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/inventec/x86-64/x86-64-inventec-d7032q28b/onlp/builds/onlpdump/Makefile b/packages/platforms/inventec/x86-64/x86-64-inventec-d7032q28b/onlp/builds/onlpdump/Makefile
+index c5c87ab8..a221d759 100644
+--- a/packages/platforms/inventec/x86-64/x86-64-inventec-d7032q28b/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/inventec/x86-64/x86-64-inventec-d7032q28b/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/inventec/x86-64/x86-64-inventec-d7054q28b/onlp/builds/onlpdump/Makefile b/packages/platforms/inventec/x86-64/x86-64-inventec-d7054q28b/onlp/builds/onlpdump/Makefile
+index 433f17e5..7f3dda60 100644
+--- a/packages/platforms/inventec/x86-64/x86-64-inventec-d7054q28b/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/inventec/x86-64/x86-64-inventec-d7054q28b/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/kvm/x86-64/x86-64-kvm-x86-64/onlp/builds/onlpdump/Makefile b/packages/platforms/kvm/x86-64/x86-64-kvm-x86-64/onlp/builds/onlpdump/Makefile
+index 3e072ecf..6a35ec40 100644
+--- a/packages/platforms/kvm/x86-64/x86-64-kvm-x86-64/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/kvm/x86-64/x86-64-kvm-x86-64/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-mqm8700/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-mqm8700/onlp/builds/onlpdump/Makefile
+index 58b6ac82..4d9380ff 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-mqm8700/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-mqm8700/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2010/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2010/onlp/builds/onlpdump/Makefile
+index b6a3ffd5..9598ea14 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2010/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2010/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2100/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2100/onlp/builds/onlpdump/Makefile
+index 31edf7c0..615450ff 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2100/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2100/onlp/builds/onlpdump/Makefile
+@@ -41,7 +41,7 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ GLOBAL_CFLAGS += -I$(mlnx_common_BASEDIR)/module/inc
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410/onlp/builds/onlpdump/Makefile
+index 5adaf05b..337beae3 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410/onlp/builds/onlpdump/Makefile
+@@ -41,7 +41,7 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ GLOBAL_CFLAGS += -I$(mlnx_common_BASEDIR)/module/inc
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410b/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410b/onlp/builds/onlpdump/Makefile
+index c245c8e1..a8e90b21 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410b/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2410b/onlp/builds/onlpdump/Makefile
+@@ -41,6 +41,6 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ GLOBAL_CFLAGS += -I$(mlnx_common_BASEDIR)/module/inc
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700/onlp/builds/onlpdump/Makefile
+index 24d431c7..d7ed6c22 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700b/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700b/onlp/builds/onlpdump/Makefile
+index dc4b9d4a..d33dee89 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700b/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2700b/onlp/builds/onlpdump/Makefile
+@@ -41,6 +41,6 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ GLOBAL_CFLAGS += -I$(mlnx_common_BASEDIR)/module/inc
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740/onlp/builds/onlpdump/Makefile
+index 174fe7e1..3b020a2a 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740b/onlp/builds/onlpdump/Makefile b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740b/onlp/builds/onlpdump/Makefile
+index 0e6a4ff3..8626c5ba 100644
+--- a/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740b/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/mellanox/x86-64/x86-64-mlnx-msn2740b/onlp/builds/onlpdump/Makefile
+@@ -41,6 +41,6 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ GLOBAL_CFLAGS += -I$(mlnx_common_BASEDIR)/module/inc
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-420-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-420-rangeley/onlp/builds/onlpdump/Makefile
+index b88bedd8..dfb477f5 100755
+--- a/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-420-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-420-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-620-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-620-rangeley/onlp/builds/onlpdump/Makefile
+index f9857a76..606ad53e 100755
+--- a/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-620-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-620-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-720-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-720-rangeley/onlp/builds/onlpdump/Makefile
+index 01db18a4..8a472cf3 100755
+--- a/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-720-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/netberg/x86-64/x86-64-netberg-aurora-720-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/nxp/arm64/arm64-nxp-ls1043ardb/onlp/builds/onlpdump/Makefile b/packages/platforms/nxp/arm64/arm64-nxp-ls1043ardb/onlp/builds/onlpdump/Makefile
+index 92193643..fed37047 100644
+--- a/packages/platforms/nxp/arm64/arm64-nxp-ls1043ardb/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/nxp/arm64/arm64-nxp-ls1043ardb/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/nxp/arm64/arm64-nxp-ls1046ardb/onlp/builds/onlpdump/Makefile b/packages/platforms/nxp/arm64/arm64-nxp-ls1046ardb/onlp/builds/onlpdump/Makefile
+index 92193643..fed37047 100644
+--- a/packages/platforms/nxp/arm64/arm64-nxp-ls1046ardb/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/nxp/arm64/arm64-nxp-ls1046ardb/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/nxp/arm64/arm64-nxp-ls1088ardb/onlp/builds/onlpdump/Makefile b/packages/platforms/nxp/arm64/arm64-nxp-ls1088ardb/onlp/builds/onlpdump/Makefile
+index 92193643..fed37047 100644
+--- a/packages/platforms/nxp/arm64/arm64-nxp-ls1088ardb/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/nxp/arm64/arm64-nxp-ls1088ardb/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/nxp/arm64/arm64-nxp-ls2088ardb/onlp/builds/onlpdump/Makefile b/packages/platforms/nxp/arm64/arm64-nxp-ls2088ardb/onlp/builds/onlpdump/Makefile
+index 92193643..fed37047 100644
+--- a/packages/platforms/nxp/arm64/arm64-nxp-ls2088ardb/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/nxp/arm64/arm64-nxp-ls2088ardb/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/qemu/arm/arm-qemu-armv7a/onlp/builds/onlpdump/Makefile b/packages/platforms/qemu/arm/arm-qemu-armv7a/onlp/builds/onlpdump/Makefile
+index 5478f0a9..e52e4cc9 100644
+--- a/packages/platforms/qemu/arm/arm-qemu-armv7a/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/qemu/arm/arm-qemu-armv7a/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/powerpc/powerpc-quanta-lb9/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/powerpc/powerpc-quanta-lb9/onlp/builds/onlpdump/Makefile
+index a3f76848..a4013239 100644
+--- a/packages/platforms/quanta/powerpc/powerpc-quanta-lb9/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/powerpc/powerpc-quanta-lb9/onlp/builds/onlpdump/Makefile
+@@ -45,7 +45,7 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ 
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/quanta/powerpc/powerpc-quanta-ly2/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/powerpc/powerpc-quanta-ly2/onlp/builds/onlpdump/Makefile
+index c4f3fe76..a611fa06 100644
+--- a/packages/platforms/quanta/powerpc/powerpc-quanta-ly2/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/powerpc/powerpc-quanta-ly2/onlp/builds/onlpdump/Makefile
+@@ -45,7 +45,7 @@ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+ 
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ix1-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ix1-rangeley/onlp/builds/onlpdump/Makefile
+index 367727d4..162f2364 100755
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ix1-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ix1-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ix1b-rglbmc/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ix1b-rglbmc/onlp/builds/onlpdump/Makefile
+index dc4617f8..d8b45c5f 100755
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ix1b-rglbmc/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ix1b-rglbmc/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ix2-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ix2-rangeley/onlp/builds/onlpdump/Makefile
+index d0b7317b..834d795a 100755
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ix2-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ix2-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ix7-rglbmc/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ix7-rglbmc/onlp/builds/onlpdump/Makefile
+index 55a8e9d3..8fd13523 100644
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ix7-rglbmc/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ix7-rglbmc/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ix8-rglbmc/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ix8-rglbmc/onlp/builds/onlpdump/Makefile
+index 5a5e759b..5c0d5903 100644
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ix8-rglbmc/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ix8-rglbmc/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ly4r/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ly4r/onlp/builds/onlpdump/Makefile
+index fffd61e3..b79dcbd7 100755
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ly4r/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ly4r/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ly6-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ly6-rangeley/onlp/builds/onlpdump/Makefile
+index b331ee93..cdbe3214 100644
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ly6-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ly6-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,7 +40,7 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+ 
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ly7-rglbmc/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ly7-rglbmc/onlp/builds/onlpdump/Makefile
+index f50697a1..f5ceb437 100755
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ly7-rglbmc/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ly7-rglbmc/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ly8-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ly8-rangeley/onlp/builds/onlpdump/Makefile
+index c38eb1c3..8a95ca46 100644
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ly8-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ly8-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+diff --git a/packages/platforms/quanta/x86-64/x86-64-quanta-ly9-rangeley/onlp/builds/onlpdump/Makefile b/packages/platforms/quanta/x86-64/x86-64-quanta-ly9-rangeley/onlp/builds/onlpdump/Makefile
+index 8f47038b..f22f824d 100755
+--- a/packages/platforms/quanta/x86-64/x86-64-quanta-ly9-rangeley/onlp/builds/onlpdump/Makefile
++++ b/packages/platforms/quanta/x86-64/x86-64-quanta-ly9-rangeley/onlp/builds/onlpdump/Makefile
+@@ -40,6 +40,6 @@ include $(BUILDER)/bin.mk
+ GLOBAL_CFLAGS += -DAIM_CONFIG_AIM_MAIN_FUNCTION=onlpdump_main
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MODULES_INIT=1
+ GLOBAL_CFLAGS += -DAIM_CONFIG_INCLUDE_MAIN=1
+-GLOBAL_LINK_LIBS += -lpthread -lm
++GLOBAL_LINK_LIBS += -lpthread -lm -li2c
+ 
+ include $(BUILDER)/targets.mk
+-- 
+2.19.1
+
