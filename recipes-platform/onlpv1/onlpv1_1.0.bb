@@ -24,25 +24,15 @@ SRCREV_FORMAT = "onl_infra_bigcode"
 SRC_URI = "${URI_ONL};name=onl \
            ${URI_INFRA};name=infra;destsuffix=git/${SUBMODULE_INFRA} \
            ${URI_BIGCODE};name=bigcode;destsuffix=git/${SUBMODULE_BIGCODE} \
-           file://ar.patch;patchdir=${SUBMODULE_INFRA} \
-           file://56.patch;patchdir=${SUBMODULE_INFRA} \
            file://onlpdump.service \
            file://gcc-strncpy-fix.patch \
-           file://0001-i2c-use-libi2c-for-onlpdump-and-update-headers.patch \
-           file://0001-don-t-call-a-binary-minor-cleanup.patch \
+           file://ar.patch;patchdir=${SUBMODULE_INFRA} \
            file://0002-fix-Werror-unused-result.patch \
-           file://0003-fix-moar-compiler-warnings.patch \
-           file://0005-Typos-Unble-Unable.patch \
-           file://0006-ag7648-typos-and-PATH_MAX-fixup.patch \
-           file://0007-as5712-54x-fix-Werror-sizeof-pointer-memaccess.patch \
-           file://0008-ag8032-fix-Werror-unused-result.patch \
-           file://0009-ag9032-several-Werror-format-overflow-and-one-Werror.patch \
-           file://0010-as5712-54x-more-fixup.patch \
-           file://0011-delta-ag8032-more-fixup.patch \
-           file://0012-ag9032v1-more-fixup.patch \
 "
 
 inherit systemd
+
+require onlpv1.inc
 
 SYSTEMD_SERVICE_${PN} = "onlpdump.service"
 SYSTEMD_AUTO_ENABLE = "enable"
@@ -66,15 +56,13 @@ BUILDER = "${S}/${SUBMODULE_INFRA}/builder/unix"
 BUILDER_MODULE_DATABASE = "${WORKDIR}/modules/modules.json"
 BUILDER_MODULE_DATABASE_ROOT = "${WORKDIR}"
 BUILDER_MODULE_MANIFEST = "${WORKDIR}/modules/modules.mk"
+
 MODULEMANIFEST = "${BUILDER_MODULE_MANIFEST}"
 
-#export SUBMODULE_INFRA BUILDER BUILDER_MODULE_DATABASE BUILDER_MODULE_DATABASE_ROOT BUILDER_MODULE_MANIFEST MODULEMANIFEST ONL
 ARCH = "${TARGET_ARCH}"
 TOOLCHAIN = "gcc-local"
 NO_USE_GCC_VERSION_TOOL="1"
 
-###
-# TODO CFLAGS?
 EXTRA_OEMAKE = "\
   'AR=${AR}' \
   'ARCH=${ARCH}' \
@@ -162,3 +150,4 @@ do_install() {
   sed -i -e 's,@BINDIR@,${bindir},g' \
          ${D}${systemd_unitdir}/system/*.service
 }
+
