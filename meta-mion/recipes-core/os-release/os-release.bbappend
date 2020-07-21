@@ -1,0 +1,13 @@
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+OS_RELEASE_FIELDS_append_mion = " \
+    BUILD_ID \
+    HOME_URL \
+    ORYX_SYSTEM_PROFILE \
+    ORYX_APPLICATION_PROFILE \
+    ORYX_MACHINE \
+    "
+
+HOME_URL = "http://mion.io/"
+BUILD_ID = "${MION_BUILD_ID}"
+ORYX_MACHINE = "${MACHINE}"

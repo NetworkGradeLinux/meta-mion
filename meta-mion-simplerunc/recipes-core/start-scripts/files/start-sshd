@@ -1,0 +1,17 @@
+#! /bin/sh
+
+set -e
+
+# Initialise tmpfs directories
+/etc/init.d/populate-volatile.sh start
+
+# Create the PrivSep empty dir if necessary
+if [ ! -d /var/run/sshd ]; then
+    mkdir /var/run/sshd
+    chmod 0755 /var/run/sshd
+fi
+
+# Create SSH host keys if they don't already exist
+/usr/libexec/openssh/sshd_check_keys
+
+exec /usr/sbin/sshd -D -e

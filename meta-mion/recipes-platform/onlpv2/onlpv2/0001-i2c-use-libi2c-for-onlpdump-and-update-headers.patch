@@ -1,0 +1,25 @@
+From 55f5788b66b82043d6209eb042fe08458132cf64 Mon Sep 17 00:00:00 2001
+From: Gawen <gawen@obelus.toganlabs.com>
+Date: Wed, 22 Jul 2020 13:27:17 +0000
+Subject: [PATCH] i2c.c: Use libi2c
+
+Signed-off-by: G Davey <gdavey@committhis.co.uk>
+---
+ packages/base/any/onlp/src/onlplib/module/src/i2c.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/packages/base/any/onlp/src/onlplib/module/src/i2c.c b/packages/base/any/onlp/src/onlplib/module/src/i2c.c
+index f5d06955..6a7caa24 100644
+--- a/packages/base/any/onlp/src/onlplib/module/src/i2c.c
++++ b/packages/base/any/onlp/src/onlplib/module/src/i2c.c
+@@ -34,6 +34,7 @@
+ #include <linux/i2c-devices.h>
+ #else
+ #include <linux/i2c-dev.h>
++#include <linux/i2c-smbus.h>
+ #endif
+ 
+ #include <sys/types.h>
+-- 
+2.17.1
+
