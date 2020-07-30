@@ -1,0 +1,42 @@
+From 197c95c6946ef45a70ffac7738f82ab71fc26229 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Eil=C3=ADs=20N=C3=AD=20Fhlannag=C3=A1in?=
+ <pidge@toganlabs.com>
+Date: Thu, 25 Jun 2020 23:49:21 +0000
+Subject: [PATCH] gcc-fixes
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Eilís Ní Fhlannagáin <pidge@toganlabs.com>
+---
+ packages/base/any/onlp/src/onlplib/module/src/file.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/packages/base/any/onlp/src/onlplib/module/src/file.c b/packages/base/any/onlp/src/onlplib/module/src/file.c
+index 622295a3..cdfc153f 100644
+--- a/packages/base/any/onlp/src/onlplib/module/src/file.c
++++ b/packages/base/any/onlp/src/onlplib/module/src/file.c
+@@ -44,6 +44,7 @@ ds_connect__(const char* path)
+ {
+     int fd;
+     struct sockaddr_un addr;
++    size_t pathlen;
+ 
+     if( (fd = socket(AF_UNIX, SOCK_STREAM, 0)) < 0) {
+         AIM_LOG_ERROR("socket: %{errno}", errno);
+@@ -54,10 +55,11 @@ ds_connect__(const char* path)
+      * UDS connects must be non-blocking.
+      */
+     fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK);
++    pathlen = strlen(path);
+ 
+     memset(&addr, 0, sizeof(addr));
+     addr.sun_family = AF_UNIX;
+-    strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
++    memcpy(addr.sun_path, path, pathlen);
+ 
+     if(connect(fd, (struct sockaddr*)&addr, sizeof(addr)) == 0) {
+ 
+-- 
+2.17.1
+

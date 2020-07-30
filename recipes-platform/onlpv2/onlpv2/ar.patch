@@ -1,0 +1,37 @@
+diff --git a/builder/unix/toolchains/gcc-local/lib.mk b/builder/unix/toolchains/gcc-local/lib.mk
+index 1c445b5..a014686 100755
+--- a/builder/unix/toolchains/gcc-local/lib.mk
++++ b/builder/unix/toolchains/gcc-local/lib.mk
+@@ -1,13 +1,13 @@
+ ################################################################
+ #
+-#        Copyright 2013, Big Switch Networks, Inc. 
+-# 
++#        Copyright 2013, Big Switch Networks, Inc.
++#
+ # Licensed under the Eclipse Public License, Version 1.0 (the
+ # "License"); you may not use this file except in compliance
+ # with the License. You may obtain a copy of the License at
+-# 
++#
+ #        http://www.eclipse.org/legal/epl-v10.html
+-# 
++#
+ # Unless required by applicable law or agreed to in writing,
+ # software distributed under the License is distributed on an
+ # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+@@ -24,9 +24,13 @@
+ # Rule definitions for building library targets.
+ ################################################################################
+ 
++ifndef AR
++AR:= ar
++endif
++
+ # Rule for the target file:
+ $(LIBRARY_DIR)/$(LIBRARY).a: $($(LIBRARY)_OBJS) | $(LIBRARY_DIR)/
+ 	@echo "    Creating Library: $@"
+-	$(VERBOSE)ar -rc $@ $($(LIBRARY)_OBJS)
++	$(VERBOSE)$(AR) -rc $@ $($(LIBRARY)_OBJS)
+ 
+ 
