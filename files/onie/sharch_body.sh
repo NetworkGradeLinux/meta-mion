@@ -1,14 +1,14 @@
 #!/bin/sh
 
+set -e
+
 #  Copyright (C) 2013 Curt Brune <curt@cumulusnetworks.com>
 #
 #  SPDX-License-Identifier:     GPL-2.0
 
-##
-## Shell archive template
-##
-## Strings of the form %%VAR%% are replaced during construction.
-##
+#FIXME APS license and copyright
+
+# Build date: %%BUILD_DATE%%
 
 echo -n "Verifying image checksum ..."
 sha1=$(sed -e '1,/^exit_marker$/d' "$0" | sha1sum | awk '{ print $1 }')

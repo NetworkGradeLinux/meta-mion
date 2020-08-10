@@ -252,8 +252,6 @@ mnt=$(mktemp -d) || error "Unable to create file system mount point"
 
 mount -t ${ROOTFS_TYPE} -o defaults,rw "${dev}" "${mnt}" || error "Unable to mount ${dev} on ${mnt}"
 
-# Copy kernel and initramfs to file system
-#cp ${KERNEL_FILE} ${INITRD_FILE} "${mnt}" #FIXME filenames
 # Install the rootfs and kernel on the new partition
 xzcat rootfs.tar.xz | tar xf - -C "${mnt}" || error "Failed to install rootfs"
 
@@ -285,6 +283,9 @@ fi
 #   - a menu entry for the OS
 #   - menu entries for ONIE
 grub_cfg=$(mktemp)
+
+#part=$(sgdisk -p "${blk_dev}" | grep "${VOLUME_LABEL}" | awk '{print $1}')
+#part_uuid="$(sgdisk -i "${part}" "${blk_dev}" | grep 'Partition unique GUID' | cut -d\  -f 4)"
 
 # Add common configuration, like the timeout and serial console.
 cat <<EOF > "${grub_cfg}"
