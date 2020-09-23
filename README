@@ -5,23 +5,48 @@ Please see the corresponding sections below for details.
 Dependencies
 ============
 
-  URI: <first dependency>
-  branch: <branch name>
+URI git://git.openembedded.org/bitbake
+branch: 1.46
 
-  URI: <second dependency>
-  branch: <branch name>
+URI	git://git.openembedded.org/openembedded-core  
+branch: dunfell
+openembedded-core/meta 
 
-  .
-  .
-  .
+URI	git@github.com:APS-Networks/meta-mion 
+branch: dunfell
+meta-mion/meta-mion 
+meta-mion/meta-mion-simplerunc 
+
+URI	git@github.com:APS-Networks/meta-mion-stordis 
+branch: dunfell
+meta-mion-stordis
+
+URI	git://git.openembedded.org/meta-openembedded 
+branch: dunfell
+meta-openembedded/meta-oe 
+meta-openembedded/meta-networking 
+meta-openembedded/meta-python 
+meta-openembedded/meta-filesystems 
+
+URI	https://git.openembedded.org/meta-python2 
+branch: dunfell
+meta-python2 
+
+URI	https://git.yoctoproject.org/git/meta-virtualization 
+branch: dunfell
+meta-virtualization 
+
+URI	git://git.yoctoproject.org/meta-yocto 
+branch: dunfell
+meta-yocto/meta-yocto-bsp 
 
 Patches
 =======
 
-Please submit any patches against the meta-mion layer to the xxxx mailing list (xxxx@zzzz.org)
+Please submit any patches against the meta-mion layer via the meta-mion github at https://github.com/APS-Networks/meta-mion
 and cc: the maintainer:
 
-Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+Maintainer: Eilís Ní Fhlannagáin <pidge@toganlabs.com>
 
 Table of Contents
 =================
