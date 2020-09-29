@@ -5,6 +5,8 @@ require mion-host-core.inc
 
 IMAGE_INSTALL += " \
     ${CONTAINER_DEPENDS} \
+    srunc \
+    preconfig-guests \
 "
 
 
