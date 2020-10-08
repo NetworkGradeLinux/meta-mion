@@ -1,6 +1,8 @@
 # Copyright (C) 2018 Tobias Jungel <tobias.jungel@bisdn.de>
 # Released under the MIT license (see COPYING.MIT for the terms)
 
+# SPDX-License-Identifier: MIT
+
 DESCRIPTION = "Open Network Linux Components for Yocto integration"
 HOMEPAGE = "https://www.opennetlinux.org/"
 LICENSE = "EPLv1.0"

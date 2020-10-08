@@ -3,6 +3,8 @@
 # Copyright (C) 2019 Daniel Fritzsche of BISDN GmbH
 # Bash script to upgrade BISDN Linux to a new image.
 
+# SPDX-License-Identifier: MIT
+
 set -e
 
 USAGE="Upgrade BISDN Linux

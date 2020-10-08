@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 DESCRIPTION = "Testing helpers for Python 3.6+"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d229da563da18fe5d58cd95a6467d584"

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 OS_RELEASE_FIELDS_append_mion = " \

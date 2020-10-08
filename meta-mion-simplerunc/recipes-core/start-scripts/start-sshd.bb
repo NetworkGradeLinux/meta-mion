@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 DESCRIPTION = "Start script for sshd"
 HOMEPAGE = "https://www.mion.io"
 LICENSE = "MIT"

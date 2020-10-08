@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 DESCRIPTION = "Simple Runc Application"
 HOMEPAGE = "https://mion.io/"
 LICENSE = "MIT"
