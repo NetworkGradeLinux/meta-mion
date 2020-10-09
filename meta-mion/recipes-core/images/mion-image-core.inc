@@ -22,6 +22,7 @@ IMAGE_INSTALL += " \
     strace \
     util-linux \
     util-linux-blkid \
+    ipmitool \
 "
 
 IMAGE_FEATURES_remove = "doc-pkgs"

@@ -26,7 +26,7 @@ import urllib.request
 from datetime import datetime
 
 APP_NAME = "srunc"
-VERSION_STRING = "%%VERSION_STRING%%"
+VERSION_STRING = "0.4"
 
 def get_image_config(image_root):
     image_url = os.path.join(image_root, "image_guest.json")
@@ -96,6 +96,25 @@ def create_spec_file(name, local_path, command, capabilities):
         "type": "tmpfs",
         "source": "tmpfs"
         })
+
+    # FIXME Fix permissions and add device nodes
+    spec['linux']['resources']['devices'][0]['allow'] = True
+    spec['linux']['devices'] = [{
+            "path": "/dev/ipmi0",
+            "type": "c",
+            "major": 248,
+            "minor": 0,
+            "uid": 0,
+            "gid": 0
+        },
+        {
+            "path": "/dev/i2c-2",
+            "type": "c",
+            "major": 89,
+            "minor": 2,
+            "uid": 0,
+            "gid": 0
+        }]
 
     # Write back the updated spec
     spec_file.seek(0)
@@ -179,10 +198,6 @@ class SruncSysmgr:
 
         image_root = os.path.join(source['url'], 'guest', image_name)
         image_config = get_image_config(image_root)
-
-        if image_config['SYSTEM_PROFILE_TYPE'] != 'guest':
-            logging.error("Image \"%s\" is not a valid guest image!", image)
-            return
 
         rootfs_url = os.path.join(image_root, image_config['ROOTFS'])
         local_path = os.path.join("/var/lib/srunc-guests", name)

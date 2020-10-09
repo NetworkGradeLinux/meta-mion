@@ -149,5 +149,10 @@ do_install() {
   install -m 0644 ${WORKDIR}/onlpdump.service ${D}${systemd_unitdir}/system
   sed -i -e 's,@BINDIR@,${bindir},g' \
          ${D}${systemd_unitdir}/system/*.service
+
+  # install platform.xml file
+  install -d ${D}${libdir}/platform-config/current/onl/
+  install -m 0664 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_PLATFORM}/platform-config/r0/src/lib/platform.xml ${D}${libdir}/platform-config/current/onl/platform.xml
+
 }
 
