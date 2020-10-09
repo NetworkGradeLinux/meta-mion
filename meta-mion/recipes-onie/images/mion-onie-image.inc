@@ -50,7 +50,6 @@ do_compile() {
 }
 
 do_compile[depends] = "mion-image-${ONLPV}:do_image_complete"
-#image-json-file:do_build"
 
 inherit deploy
 
