@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 SUMMARY = "Create a local feed of Mion guest images to allow offline creation of guests"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
