@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 SUMMARY = "mion host image recipe."
 LICENSE = "MIT"
 

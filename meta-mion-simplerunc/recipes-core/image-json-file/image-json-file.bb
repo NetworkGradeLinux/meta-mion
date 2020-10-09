@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 inherit allarch
 
 SUMMARY = "Create srunc image_guest.json file"
