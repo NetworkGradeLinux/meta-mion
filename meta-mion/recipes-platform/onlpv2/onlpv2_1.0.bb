@@ -23,6 +23,7 @@ EXTRA_OEMAKE = "\
     'SUBMODULE_INFRA=${S}/sm/infra'\
 "
 
+
 # submodules are checked out individually to support license file checking
 SRC_URI = "${URI_ONL};name=onl;branch=ONLPv2 \
            ${URI_INFRA};name=infra;destsuffix=git/${SUBMODULE_INFRA} \
@@ -44,7 +45,7 @@ SYSTEMD_AUTO_ENABLE = "enable"
 
 inherit pythonnative
 
-DEPENDS = "i2c-tools"
+DEPENDS = "i2c-tools python libedit libzip"
 
 S = "${WORKDIR}/git"
 PV = "1.1+git${SRCPV}"
@@ -100,14 +101,9 @@ do_configure() {
 }
 
 do_compile() {
-  # examples
-  #oe_runmake -C packages/base/any/onlp/builds/ show_targets show_libs show_bins show_shared show_scripts
-  #oe_runmake -C packages/base/any/onlp/builds/ alltargets
-
   V=1 VERBOSE=1 oe_runmake -C packages/base/any/onlp/builds alltargets
   V=1 VERBOSE=1 oe_runmake -C packages/base/any/onlp/builds/onlpd alltargets
-
-  V=1 VERBOSE=1 oe_runmake -C packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_PLATFORM}/onlp/builds/ alltargets
+  V=1 VERBOSE=1 oe_runmake -C packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds alltargets
 }
 
 do_install() {
@@ -120,10 +116,24 @@ do_install() {
     ${D}${includedir}/cjson \
     ${D}${includedir}/onlp \
     ${D}${includedir}/onlplib \
-    ${D}${libdir}
+    ${D}${libdir} \
+    ${D}/${libdir}/python${PYTHON_MAJMIN}/ \
+    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp \
+    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlp \
+    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/test \
+    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlplib \
+    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/sff 
 
   # install onlpdump
-  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_PLATFORM}/onlp/builds/onlpdump/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlpdump ${D}${bindir}
+  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/onlps/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlps ${D}${bindir}
+
+  # install onlpdump.py and libs
+  install -m 0755 packages/base/any/onlp/src/onlpdump.py ${D}${bindir}
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/__init__.py ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/onlp/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlp/
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/test/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/test/
+  install -m 0755 packages/base/any/onlp/src/onlplib/module/python/onlp/onlplib/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlplib/
+  install -m 0755 sm/bigcode/modules/sff/module/python/sff/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/sff
 
   # install headers
   install -m 0644 packages/base/any/onlp/src/onlp/module/inc/onlp/*.h ${D}${includedir}/onlp/
@@ -134,10 +144,11 @@ do_install() {
   install -m 0644 sm/infra/modules/AIM/module/inc/AIM/*.h ${D}${includedir}/AIM/
 
   # install libonlp-platform shared library (includes AIM.a  AIM_posix.a  BigList.a  cjson.a  cjson_util.a  IOF.a  onlplib.a  x86_64_delta_ag7648.a)
-  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_PLATFORM}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONL_PLATFORM}.so ${D}${libdir}
-  mv ${D}${libdir}/libonlp-${ONL_PLATFORM}.so ${D}${libdir}/libonlp-${ONL_PLATFORM}.so.1
-  ln -r -s ${D}${libdir}/libonlp-${ONL_PLATFORM}.so.1 ${D}${libdir}/libonlp-${ONL_PLATFORM}.so
-  ln -r -s ${D}${libdir}/libonlp-${ONL_PLATFORM}.so.1 ${D}${libdir}/libonlp-platform.so.1
+  #
+  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}
+  mv ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1
+  ln -r -s ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so
+  ln -r -s ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-platform.so.1
 
   # install libonlp shared library (includes TODO)
   install -m 0755 packages/base/any/onlp/builds/onlp/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp.so ${D}${libdir}
@@ -151,16 +162,30 @@ do_install() {
 
   # platform file
   install -d ${D}${sysconfdir}/onl
-  echo "${ONL_PLATFORM}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
+  echo "${ONIE_ARCH}-${ONIE_VENDOR}-${ONIE_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
 
   # service file
   install -d ${D}${systemd_unitdir}/system
   install -m 0644 ${WORKDIR}/onlpdump.service ${D}${systemd_unitdir}/system
   sed -i -e 's,@BINDIR@,${bindir},g' \
          ${D}${systemd_unitdir}/system/*.service
-
-  # install platform.xml file
-  install -d ${D}${libdir}/platform-config/current/onl/
-  install -m 0664 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_PLATFORM}/platform-config/r0/src/lib/platform.xml ${D}${libdir}/platform-config/current/onl/platform.xml
-
 }
+
+FILES_${PN} = "${libdir}/python${PYTHON_MAJMIN} \ 
+    ${sysconfdir} \
+    ${bindir} \
+    ${includedir}/AIM \
+    ${includedir}/BigList \
+    ${includedir}/IOF \
+    ${includedir}/cjson \
+    ${includedir}/onlp \
+    ${includedir}/onlplib \
+    ${libdir} \
+    ${libdir}/python${PYTHON_MAJMIN}/ \
+    ${libdir}/python${PYTHON_MAJMIN}/onlp \
+    ${libdir}/python${PYTHON_MAJMIN}/onlp/onlp \
+    ${libdir}/python${PYTHON_MAJMIN}/onlp/test \
+    ${libdir}/python${PYTHON_MAJMIN}/onlp/onlplib \
+    ${libdir}/python${PYTHON_MAJMIN}/onlp/sff \
+"
+
