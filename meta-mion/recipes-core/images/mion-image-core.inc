@@ -23,7 +23,10 @@ IMAGE_INSTALL += " \
     util-linux \
     util-linux-blkid \
     ipmitool \
+    openssh-sshd \
+    openssh-ssh \
 "
 
-IMAGE_FEATURES_remove = "doc-pkgs"
+IMAGE_FEATURES += "ssh-server-openssh"
 
+IMAGE_FEATURES_remove = "doc-pkgs"
