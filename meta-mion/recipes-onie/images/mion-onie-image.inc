@@ -15,6 +15,7 @@ do_package_write_ipk[noexec] = "1"
 do_package_write_rpm[noexec] = "1"
 do_package_write_deb[noexec] = "1"
 do_populate_sysroot[noexec] = "1"
+do_compile[nostamp]="1"
 
 ONIEIMAGE_DIR ?= "${S}"
 ONIEIMAGE_DIR_INSTALL = "${ONIEIMAGE_DIR}/installer/"
