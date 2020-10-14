@@ -7,4 +7,6 @@ require mion-guest.inc
 
 IMAGE_INSTALL += " \ 
  onlpv2 \
+ packagegroup-onl-python2 \
 "
+
