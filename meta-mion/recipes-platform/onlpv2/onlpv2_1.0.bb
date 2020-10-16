@@ -117,23 +117,31 @@ do_install() {
     ${D}${includedir}/onlp \
     ${D}${includedir}/onlplib \
     ${D}${libdir} \
-    ${D}/${libdir}/python${PYTHON_MAJMIN}/ \
-    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp \
-    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlp \
-    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/test \
-    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlplib \
-    ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/sff 
+    ${D}/usr/lib/python2.7/site-packages \
+    ${D}/usr/lib/python2.7/site-packages/onlp \
+    ${D}/usr/lib/python2.7/site-packages/onlp/onlp \
+    ${D}/usr/lib/python2.7/site-packages/onlp/test \
+    ${D}/usr/lib/python2.7/site-packages/onlp/onlplib \
+    ${D}/usr/lib/python2.7/site-packages/onlp/sff \ 
+    ${D}/usr/lib/python2.7/site-packages/AIM \
+    ${D}/usr/lib/python2.7/site-packages/BigList \
+    ${D}/usr/lib/python2.7/site-packages/cjson_util \
+
 
   # install onlpdump
   install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/onlps/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlps ${D}${bindir}
 
   # install onlpdump.py and libs
   install -m 0755 packages/base/any/onlp/src/onlpdump.py ${D}${bindir}
-  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/__init__.py ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/
-  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/onlp/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlp/
-  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/test/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/test/
-  install -m 0755 packages/base/any/onlp/src/onlplib/module/python/onlp/onlplib/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/onlplib/
-  install -m 0755 sm/bigcode/modules/sff/module/python/sff/* ${D}/${libdir}/python${PYTHON_MAJMIN}/onlp/sff
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/__init__.py ${D}/${libdir}/python2.7/site-packages/onlp/
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/onlp/* ${D}/${libdir}/python2.7/site-packages/onlp/onlp/
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/onlp/test/* ${D}/${libdir}/python2.7/site-packages/onlp/test/
+  install -m 0755 packages/base/any/onlp/src/onlplib/module/python/onlp/onlplib/* ${D}/${libdir}/python2.7/site-packages/onlp/onlplib/
+  install -m 0755 sm/bigcode/modules/sff/module/python/sff/* ${D}/${libdir}/python2.7/site-packages/onlp/sff
+
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/AIM/* ${D}/${libdir}/python2.7/site-packages/AIM
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/BigList/* ${D}/${libdir}/python2.7/site-packages/BigList
+  install -m 0755 packages/base/any/onlp/src/onlp/module/python/cjson_util/* ${D}/${libdir}/python2.7/site-packages/cjson_util
 
   # install headers
   install -m 0644 packages/base/any/onlp/src/onlp/module/inc/onlp/*.h ${D}${includedir}/onlp/
@@ -171,7 +179,7 @@ do_install() {
          ${D}${systemd_unitdir}/system/*.service
 }
 
-FILES_${PN} = "${libdir}/python${PYTHON_MAJMIN} \ 
+FILES_${PN} = "${libdir}/python2.7 \ 
     ${sysconfdir} \
     ${bindir} \
     ${includedir}/AIM \
@@ -181,11 +189,6 @@ FILES_${PN} = "${libdir}/python${PYTHON_MAJMIN} \
     ${includedir}/onlp \
     ${includedir}/onlplib \
     ${libdir} \
-    ${libdir}/python${PYTHON_MAJMIN}/ \
-    ${libdir}/python${PYTHON_MAJMIN}/onlp \
-    ${libdir}/python${PYTHON_MAJMIN}/onlp/onlp \
-    ${libdir}/python${PYTHON_MAJMIN}/onlp/test \
-    ${libdir}/python${PYTHON_MAJMIN}/onlp/onlplib \
-    ${libdir}/python${PYTHON_MAJMIN}/onlp/sff \
+    ${libdir}/python2.7/site-packages/* \
 "
 
