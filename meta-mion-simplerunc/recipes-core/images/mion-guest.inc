@@ -21,7 +21,20 @@ IMAGE_INSTALL = " \
     initscripts \
     start-sshd \
     ipmitool \
-"
+    os-release \
+    iproute2 \
+    iptables \
+    bash \
+    haveged \
+    i2c-tools \
+    iproute2 \
+    less \
+    onie-tools \
+    parted \
+    strace \
+    binutils \
+    glibc \
+    "
 
 MION_APPLICATION_COMMAND = "/sbin/start-sshd"
 

@@ -25,7 +25,9 @@ IMAGE_INSTALL += " \
     ipmitool \
     openssh-sshd \
     openssh-ssh \
-"
+    binutils \
+    glibc \
+    "
 
 IMAGE_FEATURES += "ssh-server-openssh"
 
