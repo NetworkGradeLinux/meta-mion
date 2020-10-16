@@ -34,6 +34,7 @@ IMAGE_INSTALL = " \
     strace \
     binutils \
     glibc \
+    tzdata \
     "
 
 MION_APPLICATION_COMMAND = "/sbin/start-sshd"

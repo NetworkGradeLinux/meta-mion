@@ -27,6 +27,7 @@ IMAGE_INSTALL += " \
     openssh-ssh \
     binutils \
     glibc \
+    tzdata \
     "
 
 IMAGE_FEATURES += "ssh-server-openssh"
