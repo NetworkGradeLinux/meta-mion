@@ -32,10 +32,10 @@ SRC_URI = "${URI_ONL};name=onl \
            file://onlpdump.service \
            file://gcc-strncpy-fix.patch \
            file://0002-fix-Werror-unused-result.patch \
-	   file://0001-i2c-bigcode-use-libi2c-for-onlpdump-and-update-headers.patch;patchdir=${SUBMODULE_BIGCODE} \
+           file://0001-i2c-bigcode-use-libi2c-for-onlpdump-and-update-headers.patch;patchdir=${SUBMODULE_BIGCODE} \
            file://0001-i2c-infra-use-libi2c-for-onlpdump-and-update-headers.patch;patchdir=${SUBMODULE_INFRA} \
            file://0001-i2c-use-libi2c-for-onlpdump-and-update-headers.patch \
-	   file://0001-Add-smbus-header-to-onlp-i2c-source.patch \
+           file://0001-Add-smbus-header-to-onlp-i2c-source.patch \
 "
 
 inherit systemd
