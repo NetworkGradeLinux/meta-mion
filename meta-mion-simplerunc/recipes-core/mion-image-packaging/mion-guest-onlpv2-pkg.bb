@@ -4,8 +4,6 @@ SUMMARY = "Package onlpv2 container image"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 FILESEXTRAPATHS_prepend = "${TOPDIR}/tmp-guest-${MACHINE}/deploy/images/${MACHINE}:"
-SRC_URI = "file://mion-guest-onlpv2-${MACHINE}.tar.xz"
-SRC_URI[md5sums] = ""
 
 INHIBIT_DEFAULT_DEPS = "1"
 
