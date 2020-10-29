@@ -5,13 +5,8 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 FILESEXTRAPATHS_prepend = "${TOPDIR}/tmp-guest-${MACHINE}/deploy/images/${MACHINE}:"
 
-INHIBIT_DEFAULT_DEPS = "1"
-
-inherit allarch
-do_fetch[nostamp]="1"
-do_install[nostamp]="1"
-
-do_fetch[mcdepends] = "mc:${HOSTMC}:${GUESTMC}:mion-guest-onlpv1:do_image_complete mc:${HOSTMC}:${GUESTMC}:virtual/kernel:do_deploy"
+do_compile[noexec] = "1"
+do_install[mcdepends] = "mc:${HOSTMC}:${GUESTMC}:mion-guest-onlpv1:do_image_complete "
 
 python () {
     import os
@@ -27,7 +22,7 @@ python () {
 
 do_install () {
     install -d ${D}/usr/share/srunc/local-feed/guest/mion-guest-onlpv1
-    install ${TOPDIR}/tmp-guest-${MACHINE}/deploy/images/${MACHINE}/mion-guest-onlpv1-${MACHINE}.tar.xz ${D}/usr/share/srunc/local-feed/guest/mion-guest-onlpv1/
+    install ${TOPDIR}/tmp-guest-${MACHINE}-${TCLIBC}/deploy/images/${MACHINE}/mion-guest-onlpv1-${MACHINE}.tar.xz ${D}/usr/share/srunc/local-feed/guest/mion-guest-onlpv1/
 }
 
 FILES_${PN} += "${prefix}/share/srunc/local-feed/*"
