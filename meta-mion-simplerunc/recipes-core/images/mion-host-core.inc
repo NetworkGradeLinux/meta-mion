@@ -30,10 +30,7 @@ IMAGE_INSTALL += " \
     strace \
     util-linux \
     util-linux-blkid \
-    ${CONTAINER_DEPENDS} \
-    preconfig-guests \
-    mion-local-feed \
-"
+    "
 IMAGE_FEATURES += "ssh-server-openssh"
 
 IMAGE_FEATURES_remove = "doc-pkgs"
