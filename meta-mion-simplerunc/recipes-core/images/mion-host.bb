@@ -57,11 +57,11 @@ python rootfs_mion_local_feed() {
 }
 
 rootfs_install_localfeed () {
-    install -d -m 0755 "${IMAGE_ROOTFS}/srunc/local-feed/guest"
-    install -d -m 0755 "${IMAGE_ROOTFS}/srunc/preconfig.d"
-    echo "[source:local]" >> "${IMAGE_ROOTFS}/srunc/preconfig.d/01-local-feed.conf"
-    echo "url = file:///usr/share/srunc/local-feed" >> "${IMAGE_ROOTFS}/srunc/preconfig.d/01-local-feed.conf"
-    chmod 644 "${IMAGE_ROOTFS}/srunc/preconfig.d/01-local-feed.conf"
+    install -d -m 0755 "${IMAGE_ROOTFS}/usr/share/srunc/local-feed/guest"
+    install -d -m 0755 "${IMAGE_ROOTFS}/usr/share/srunc/preconfig.d"
+    echo "[source:local]" >> "${IMAGE_ROOTFS}/usr/share/srunc/preconfig.d/01-local-feed.conf"
+    echo "url = file:///usr/share/srunc/local-feed" >> "${IMAGE_ROOTFS}/usr/share/srunc/preconfig.d/01-local-feed.conf"
+    chmod 644 "${IMAGE_ROOTFS}/usr/share/srunc/preconfig.d/01-local-feed.conf"
 }
 
 
