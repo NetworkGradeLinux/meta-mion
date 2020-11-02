@@ -28,6 +28,7 @@ IMAGE_INSTALL += " \
     binutils \
     glibc \
     tzdata \
+    ethtool \
     "
 
 IMAGE_FEATURES += "ssh-server-openssh"
