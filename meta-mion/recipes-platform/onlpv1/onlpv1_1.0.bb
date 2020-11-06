@@ -154,7 +154,7 @@ do_install() {
 
   # platform file
   install -d ${D}${sysconfdir}/onl
-  echo "${ONIE_ARCH}-${ONIE_VENDOR}-${ONIE_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
+  echo "${ONL_ARCH}-${ONIE_VENDOR}-${ONIE_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
 
   # service file
   install -d ${D}${systemd_unitdir}/system
