@@ -10,6 +10,25 @@ IMAGE_INSTALL += " \
     preconfig-guests \
 "
 
+do_rootfs[mcdepends] = "${MCLINE}"
+
+python () {
+    import os
+    tmp=d.getVar('BUILD_ARGS', True).split(' ')
+    if not tmp:
+        raise bb.parse.SkipRecipe("Recipe called outside of mc_build. See release note in RELEASE_NOTES on multitarget mc builds.")
+    for i, s in enumerate(tmp):
+        if "host" in s:
+            d.setVar("HOSTMC", s.split(":")[0])
+
+    mc=""
+    for name in d.getVar('CONTAINER_NAMES', True).split(' '):
+        if "guest" in name:
+            mc=mc + "mc:"+d.getVar('HOSTMC', True) + ":guest:"+name+":do_image_complete "
+    d.setVar('MCLINE', mc) 
+
+}
+
 
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_install_container ; rootfs_mion_local_feed ; rootfs_install_localfeed ;"
 
