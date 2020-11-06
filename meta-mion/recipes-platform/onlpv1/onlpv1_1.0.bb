@@ -21,7 +21,7 @@ URI_INFRA ?= "git://github.com/floodlight/infra.git"
 URI_BIGCODE ?= "git://github.com/floodlight/bigcode.git"
 
 SRCREV_FORMAT = "onl_infra_bigcode"
-
+ONLP_VERSION = "onlpv1"
 # submodules are checked out individually to support license file checking
 SRC_URI = "${URI_ONL};name=onl \
            ${URI_INFRA};name=infra;destsuffix=git/${SUBMODULE_INFRA} \
@@ -137,10 +137,10 @@ do_install() {
 
   # install libonlp-platform shared library (includes AIM.a  AIM_posix.a  BigList.a  cjson.a  cjson_util.a  IOF.a  onlplib.a  x86_64_delta_ag7648.a)
   #
-  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}
-  mv ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1
-  ln -r -s ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so
-  ln -r -s ${D}${libdir}/libonlp-${ONIE_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-platform.so.1
+  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}
+  mv ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1
+  ln -r -s ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so
+  ln -r -s ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-platform.so.1
 
   # install libonlp shared library (includes TODO)
   install -m 0755 packages/base/any/onlp/builds/onlp/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp.so ${D}${libdir}
@@ -154,7 +154,7 @@ do_install() {
 
   # platform file
   install -d ${D}${sysconfdir}/onl
-  echo "${ONIE_ARCH}-${ONIE_VENDOR}-${ONIE_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
+  echo "${ONL_ARCH}-${ONIE_VENDOR}-${ONIE_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
 
   # service file
   install -d ${D}${systemd_unitdir}/system
@@ -162,9 +162,6 @@ do_install() {
   sed -i -e 's,@BINDIR@,${bindir},g' \
          ${D}${systemd_unitdir}/system/*.service
 
-  # install platform.xml file
-  install -d ${D}/lib/platform-config/current/onl/
-  install -m 0664 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/platform-config/r0/src/lib/platform.xml ${D}/lib/platform-config/current/onl/platform.xml
 }
 
 FILES_${PN} = "${libdir}/python${PYTHON_MAJMIN} \ 
