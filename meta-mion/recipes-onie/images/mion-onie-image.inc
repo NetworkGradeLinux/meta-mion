@@ -22,7 +22,7 @@ ONIEIMAGE_DIR_INSTALL = "${ONIEIMAGE_DIR}/installer/"
 
 ONIEIMAGE_SHELL_ARCHIVE_BODY ?= "${WORKDIR}/sharch_body.sh"
 ONIEIMAGE_INSTALL_SCRIPT ?= "${WORKDIR}/grub-env/install.sh"
-ONIEIMAGE_CONF_DIR ?= "${MIONBASE}/meta-mion-${ONIE_VENDOR}/conf/onie-profiles/${MACHINE}/${ONLPV}"
+ONIEIMAGE_CONF_DIR ?= "${MIONBASE}/meta-mion-bsp/meta-mion-${ONIE_VENDOR}/conf/onie-profiles/${MACHINE}/${ONLPV}"
 ONIEIMAGE_MACHINE_CONF ?= "${ONIEIMAGE_CONF_DIR}/machine.conf"
 ONIEIMAGE_PLATFORM_CONF ?= "${ONIEIMAGE_CONF_DIR}/platform.conf"
 
