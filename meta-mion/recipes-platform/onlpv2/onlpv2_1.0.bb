@@ -106,7 +106,7 @@ do_configure() {
 do_compile() {
   V=1 VERBOSE=1 oe_runmake -C packages/base/any/onlp/builds alltargets
   V=1 VERBOSE=1 oe_runmake -C packages/base/any/onlp/builds/onlpd alltargets
-  V=1 VERBOSE=1 oe_runmake -C packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds alltargets
+  V=1 VERBOSE=1 oe_runmake -C packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/onlp/builds alltargets
 }
 
 do_install() {
@@ -132,7 +132,7 @@ do_install() {
 
 
   # install onlpdump
-  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/onlps/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlps ${D}${bindir}
+  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/onlp/builds/onlps/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlps ${D}${bindir}
 
   # install onlpdump.py and libs
   install -m 0755 packages/base/any/onlp/src/onlpdump.py ${D}${bindir}
@@ -156,10 +156,10 @@ do_install() {
 
   # install libonlp-platform shared library (includes AIM.a  AIM_posix.a  BigList.a  cjson.a  cjson_util.a  IOF.a  onlplib.a  x86_64_delta_ag7648.a)
   #
-  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONIE_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}
-  mv ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1
-  ln -r -s ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so
-  ln -r -s ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONIE_MACHINE}.so.1 ${D}${libdir}/libonlp-platform.so.1
+  install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so ${D}${libdir}
+  mv ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so.1
+  ln -r -s ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so.1 ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so
+  ln -r -s ${D}${libdir}/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so.1 ${D}${libdir}/libonlp-platform.so.1
 
   # install libonlp shared library (includes TODO)
   install -m 0755 packages/base/any/onlp/builds/onlp/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp.so ${D}${libdir}
@@ -173,7 +173,7 @@ do_install() {
 
   # platform file
   install -d ${D}${sysconfdir}/onl
-  echo "${ONL_ARCH}-${ONIE_VENDOR}-${ONIE_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
+  echo "${ONL_ARCH}-${ONIE_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}" > ${D}${sysconfdir}/onl/platform
 
   # service file
   install -d ${D}${systemd_unitdir}/system
