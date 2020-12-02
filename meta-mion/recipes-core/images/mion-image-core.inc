@@ -11,7 +11,6 @@ IMAGE_INSTALL += " \
     bash \
     e2fsprogs-resize2fs \
     e2fsprogs-tune2fs \
-    grub \
     haveged \
     i2c-tools \
     iproute2 \

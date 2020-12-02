@@ -87,6 +87,11 @@ EXTRA_OEMAKE = "\
   'TOOLCHAIN=${TOOLCHAIN}' \
 "
 
+SYSTEMD_SERVICE_${PN} = "\
+    onlpdump.service \
+    baseconf.service \
+"
+
 do_configure() {
   mkdir -p $(dirname ${BUILDER_MODULE_DATABASE})
   MODULEMANIFEST_=$(${BUILDER}/tools/modtool.py --db ${BUILDER_MODULE_DATABASE} --dbroot ${BUILDER_MODULE_DATABASE_ROOT} --make-manifest ${BUILDER_MODULE_MANIFEST})
