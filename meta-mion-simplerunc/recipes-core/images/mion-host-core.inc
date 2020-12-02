@@ -30,7 +30,6 @@ IMAGE_INSTALL += " \
     strace \
     util-linux \
     util-linux-blkid \
-    onlpv1 \
     "
 
 IMAGE_FEATURES += "ssh-server-openssh"
