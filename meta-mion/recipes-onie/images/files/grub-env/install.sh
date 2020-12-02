@@ -14,9 +14,8 @@ set -e
 
 VOLUME_LABEL="MION-OS"
 PART_SIZE_MB=4096
-ROOTFS_FILE="rootfs.tar.xz"
-KERNEL_FILE="bzImage"
-GRUB_ENTRY="Mion OS"
+MION_VERSION=
+GRUB_ENTRY="Mion OS ${MION_VERSION}"
 ROOTFS_TYPE="ext4"
 
 ONIE_BOOT_UUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
@@ -329,7 +328,7 @@ function entry_start {
 menuentry '${GRUB_ENTRY}' {
         search --no-floppy --label --set=root ${VOLUME_LABEL}
         echo    'Loading ${GRUB_ENTRY} ...'
-        linux   /boot/${KERNEL_FILE} ${GRUB_CMDLINE_LINUX} rootfstype=${ROOTFS_TYPE} root=PARTLABEL=${VOLUME_LABEL} rootwait ${EXTRA_CMDLINE_LINUX}
+        linux   /boot/bzImage ${GRUB_CMDLINE_LINUX} rootfstype=${ROOTFS_TYPE} root=PARTLABEL=${VOLUME_LABEL} rootwait ${EXTRA_CMDLINE_LINUX}
 }
 
 EOF

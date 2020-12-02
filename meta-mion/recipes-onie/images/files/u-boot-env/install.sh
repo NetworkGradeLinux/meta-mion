@@ -10,11 +10,11 @@ set -e
 cd $(dirname $0)
 . ./machine.conf
 
-echo "Demo Installer: platform: $platform"
+echo "Mion Installer: platform: $platform"
 
 install_uimage() {
     echo "Copying uImage to NOR flash:"
-    flashcp -v demo-${platform}.itb $mtd_dev
+    flashcp -v fitImage-mion.bin $mtd_dev
 }
 
 hw_load() {
