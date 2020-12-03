@@ -31,6 +31,7 @@ IMAGE_INSTALL += " \
     util-linux \
     util-linux-blkid \
     "
+
 IMAGE_FEATURES += "ssh-server-openssh"
 
 IMAGE_FEATURES_remove = "doc-pkgs"
