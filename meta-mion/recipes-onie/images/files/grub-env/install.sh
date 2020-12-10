@@ -9,6 +9,7 @@
 #  ONIE install script for Mion OS
 
 set -e
+#set -x
 
 ###############################################################################
 
@@ -211,7 +212,7 @@ cd "$(dirname "$0")"
 
 . /lib/onie/onie-blkdev-common
 
-info "Mion Installer -- ${platform}"
+info "Mion Installer -- ${PLATFORM}"
 
 # Install OS on same block device as ONIE
 blk_dev=$(blkid | grep ONIE-BOOT | awk '{print $1}' | sed -e 's/[1-9][0-9]*:.*$//' |\
@@ -344,4 +345,6 @@ umount "${mnt}" || warn "Problems umounting ${mnt}"
 cd /
 
 # Set NOS mode if available
-[ -x /bin/onie-nos-mode ] && /bin/onie-nos-mode -s
+if [ -x /bin/onie-nos-mode ]; then
+    /bin/onie-nos-mode -s
+fi
