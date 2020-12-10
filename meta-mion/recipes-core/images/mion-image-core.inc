@@ -28,6 +28,10 @@ IMAGE_INSTALL += " \
     glibc \
     tzdata \
     ethtool \
+    curl \
+    wget \
+    sudo \
+    efibootmgr \
     "
 
 IMAGE_INSTALL += "${@bb.utils.contains('MACHINE_FEATURES', 'tpm2', 'packagegroup-security-tpm2', '', d)}"
