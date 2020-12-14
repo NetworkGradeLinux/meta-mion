@@ -134,19 +134,17 @@ do_install() {
     
     # /lib first
     install -d \
-        ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl/bin \
-        ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl/lib
+        ${D}/lib/platform-config/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}/onl/bin \
+        ${D}/lib/platform-config/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}/onl/lib
 
     # .so file
-    install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl/lib
+    install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/onlp/builds/lib/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/libonlp-${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}.so ${D}/lib/platform-config/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}/onl/lib
 
     # platform yml file
-    install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/platform-config/r${ONIE_MACHINE_REV}/src/lib/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}.yml ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl
+    install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/platform-config/r${ONIE_MACHINE_REV}/src/lib/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}.yml ${D}/lib/platform-config/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}/onl
 
     # this is a dangerous hack
-    sed -i '/kernel-4-14/d' ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}.yml
-
-    sed -i '/:kernel/d' ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}.yml
+    sed -i '/kernel-4-/d' ${D}/lib/platform-config/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}/onl/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}.yml
 
     # install onlpdump in bindir and link to lib/platformconf/*/onl/bin
     # Some code needs to go here to figure out if it's onlpdump or onlps. for now assume onlps.
@@ -154,7 +152,7 @@ do_install() {
         ${D}${libdir} 
 
     install -m 0755 packages/platforms/${ONIE_VENDOR}/${ONL_ARCH}/${ONL_MACHINE}/onlp/builds/onlpdump/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlps ${D}${bindir}
-    ln -r -s ${D}${bindir}/onlps ${D}/lib/platform-config/${ONL_ARCH}_${ONL_VENDOR}_${ONL_MACHINE}_r${ONIE_MACHINE_REV}/onl/bin/onlps
+    ln -r -s ${D}${bindir}/onlps ${D}/lib/platform-config/${ONL_ARCH}-${ONL_VENDOR}-${ONL_MACHINE}-r${ONIE_MACHINE_REV}/onl/bin/onlps
 
     # install onlpdump.py and libs
     install -d \ 
