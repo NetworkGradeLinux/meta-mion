@@ -12,12 +12,12 @@ URI	git://git.openembedded.org/openembedded-core
 branch: dunfell
 openembedded-core/meta 
 
-URI	git@github.com:APS-Networks/meta-mion 
+URI	git@github.com:NetworkGradeLinux/meta-mion 
 branch: dunfell
 meta-mion/meta-mion 
 meta-mion/meta-mion-simplerunc 
 
-URI	git@github.com:APS-Networks/meta-mion-stordis 
+URI	git@github.com:NetworkGradeLinux/meta-mion-bsp
 branch: dunfell
 meta-mion-stordis
 
@@ -43,7 +43,7 @@ meta-yocto/meta-yocto-bsp
 Patches
 =======
 
-Please submit any patches against the meta-mion layer via the meta-mion github at https://github.com/APS-Networks/meta-mion
+Please submit any patches against the meta-mion layer via the meta-mion github at https://github.com/NetworkGradeLinux/meta-mion
 and cc: the maintainer:
 
 Maintainer: Eilís Ní Fhlannagáin <pidge@toganlabs.com>
