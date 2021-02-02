@@ -14,11 +14,12 @@ set -e
 ###############################################################################
 
 VOLUME_LABEL="MION-OS"
-PART_SIZE_MB=4096
 ROOTFS_FILE="rootfs.tar.xz"
 KERNEL_FILE="bzImage"
-GRUB_ENTRY="Mion OS ${DISTRO_VERSION}"
+MION_VERSION=
+GRUB_ENTRY="Mion OS ${MION_VERSION}"
 ROOTFS_TYPE="ext4"
+ROOTFS_SIZE_MB=
 
 ONIE_BOOT_UUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 
@@ -56,8 +57,11 @@ create_gpt_partition()
     # Create new partition
     info "Creating new GPT partition ${blk_dev}${blk_suffix}${part_num}"
 
+    PART_SIZE=0 # Use the max space available by default
+    [ ! -z "${ROOTFS_SIZE_MB}" ] && PART_SIZE="+${ROOTFS_SIZE_MB}MB"
+
     gpt_attr_bitmask="0x0" #FIXME is this needed or is there a default?
-    sgdisk --new="${part_num}::+${PART_SIZE_MB}MB" \
+    sgdisk --new="${part_num}:0:${PART_SIZE}" \
         --attributes="${part_num}:=:${gpt_attr_bitmask}" \
         --change-name="${part_num}:${VOLUME_LABEL}" "${blk_dev}" ||
             error "Unable to create partition ${part_num} on ${blk_dev}"

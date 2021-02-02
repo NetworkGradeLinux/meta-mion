@@ -47,6 +47,7 @@ do_bundle () {
     cp "${INSTALL_SCRIPT}" "${ONIEIMAGE_PLATFORM_CONF}" "${ONIEIMAGE_MACHINE_CONF}" "${ONIEIMAGE_DIR_INSTALL}"
     # Set the mion version in the grub menu
     sed -i -e "s/MION_VERSION=/MION_VERSION=\"${DISTRO_VERSION}\"/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+    sed -i -e "s/ROOTFS_SIZE_MB=/ROOTFS_SIZE_MB=${MION_PART_SIZE_MB}/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
     tar -C "${ONIEIMAGE_DIR}" -cf "${ONIEIMAGE_PAYLOAD_FILE}" "installer"
 
     # Populate the shell archive body
