@@ -13,14 +13,18 @@ set -e
 
 ###############################################################################
 
-VOLUME_LABEL="MION-OS"
-ROOTFS_FILE="rootfs.tar.xz"
-KERNEL_FILE="bzImage"
 MION_VERSION=
-GRUB_ENTRY="Mion OS ${MION_VERSION}"
-ROOTFS_TYPE="ext4"
+INSTALL_TYPE=
 ROOTFS_SIZE_MB=
 
+VOLUME_LABEL="MION-OS"
+ROOTFS_TYPE="ext4"
+
+ROOTFS_FILE="rootfs.tar.xz"
+INITRD_FILE="mion.initrd"
+KERNEL_FILE="bzImage"
+
+GRUB_ENTRY="Mion OS ${MION_VERSION}"
 ONIE_BOOT_UUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 
 ###############################################################################
@@ -258,7 +262,11 @@ mnt=$(mktemp -d) || error "Unable to create file system mount point"
 mount -t ${ROOTFS_TYPE} -o defaults,rw "${dev}" "${mnt}" || error "Unable to mount ${dev} on ${mnt}"
 
 # Install the rootfs and kernel on the new partition
-xzcat rootfs.tar.xz | tar xf - -C "${mnt}" || error "Failed to install rootfs"
+if [ "${INSTALL_TYPE}" = "initramfs" ]; then
+    cp ${KERNEL_FILE} ${INITRD_FILE} "${mnt}" || error "Failed to install rootfs and kernel"
+else
+    xzcat ${ROOTFS_FILE} | tar xf - -C "${mnt}" || error "Failed to install rootfs"
+fi
 
 # store installation log in the file system
 onie-support "${mnt}"
@@ -333,11 +341,22 @@ function entry_start {
 
 menuentry '${GRUB_ENTRY}' {
         search --no-floppy --label --set=root ${VOLUME_LABEL}
-        echo    'Loading ${GRUB_ENTRY} ...'
-        linux   /boot/bzImage ${GRUB_CMDLINE_LINUX} rootfstype=${ROOTFS_TYPE} root=PARTLABEL=${VOLUME_LABEL} rootwait ${EXTRA_CMDLINE_LINUX}
-}
-
+		echo    'Loading ${GRUB_ENTRY} ...'
 EOF
+
+# GRUB entry is different for initramfs vs full install
+if [ "${INSTALL_TYPE}" = "initramfs" ]; then
+    cat <<EOF >> "${grub_cfg}"
+        linux   /${KERNEL_FILE} ${GRUB_CMDLINE_LINUX} ${EXTRA_CMDLINE_LINUX}
+        initrd  /${INITRD_FILE}
+}
+EOF
+else
+    cat <<EOF >> "${grub_cfg}"
+		linux   /boot/${KERNEL_FILE} ${GRUB_CMDLINE_LINUX} rootfstype=${ROOTFS_TYPE} root=PARTLABEL=${VOLUME_LABEL} rootwait ${EXTRA_CMDLINE_LINUX}
+}
+EOF
+fi
 
 # Add menu entries for ONIE, use the grub fragment provided by the ONIE distribution.
 "${onie_root_dir}/grub.d/50_onie_grub" >> "${grub_cfg}"
