@@ -36,6 +36,6 @@ IMAGE_INSTALL += " \
 
 IMAGE_INSTALL += "${@bb.utils.contains('MACHINE_FEATURES', 'tpm2', 'packagegroup-security-tpm2', '', d)}"
 
-IMAGE_FEATURES += "ssh-server-openssh"
+IMAGE_FEATURES += "ssh-server-openssh dev-pkgs"
 
 IMAGE_FEATURES_remove = "doc-pkgs"
