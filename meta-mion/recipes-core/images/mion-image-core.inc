@@ -3,39 +3,50 @@ LICENSE = "MIT"
 
 inherit core-image
 
+# Package groups
 IMAGE_INSTALL += " \
-    packagegroup-core-boot \
-    os-release \
-    iproute2 \
-    iptables \
-    bash \
-    e2fsprogs-resize2fs \
-    e2fsprogs-tune2fs \
-    haveged \
-    i2c-tools \
-    iproute2 \
-    kernel-modules \
-    less \
-    onie-tools \
-    parted \
-    strace \
-    util-linux \
-    util-linux-blkid \
-    ipmitool \
-    openssh-sshd \
-    openssh-ssh \
-    binutils \
-    glibc \
-    tzdata \
-    ethtool \
-    curl \
-    wget \
-    sudo \
-    efibootmgr \
-    "
+    packagegroup-core-boot-mion \
+    packagegroup-core-full-cmdline \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'tpm2', 'packagegroup-security-tpm2', '', d)} \
+"
 
-IMAGE_INSTALL += "${@bb.utils.contains('MACHINE_FEATURES', 'tpm2', 'packagegroup-security-tpm2', '', d)}"
+# Individual packages not in the packagegroups
+IMAGE_INSTALL += " \
+    bind-utils \
+    binutils \
+    bridge-utils \
+    curl \
+    dnsmasq \
+    dmidecode \
+    efibootmgr \
+    findutils \
+    glibc \
+    haveged \
+    htop \
+    i2c-tools \
+    ipmitool \
+    kernel-modules \
+    onie-tools \
+    openssh-ssh \
+    openssh-sshd \
+    os-release \
+    parted \
+    pciutils \
+    rsync \
+    strace \
+    tzdata \
+    usbutils \
+    util-linux-blkid \
+    vim \
+    which \
+    xz \
+"
 
 IMAGE_FEATURES += "ssh-server-openssh dev-pkgs"
 
 IMAGE_FEATURES_remove = "doc-pkgs"
+
+PREFERRED_PROVIDER_virtual/base-utils = "packagegroup-core-base-utils"
+VIRTUAL-RUNTIME_base-utils = "packagegroup-core-base-utils"
+VIRTUAL-RUNTIME_base-utils-hwclock = "util-linux-hwclock"
+VIRTUAL-RUNTIME_base-utils-syslog = ""
