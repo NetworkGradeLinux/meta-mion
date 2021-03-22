@@ -3,7 +3,7 @@ LICENSE = "MIT"
 
 inherit core-image
 
-IMAGE_INSTALL += " \
+IMAGE_INSTALL_append = " \
     packagegroup-core-boot \
     openssh-sshd \
     openssh-sftp-server \

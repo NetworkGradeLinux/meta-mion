@@ -2,7 +2,7 @@
 
 require mion-image-core.inc
 ONLPV="onlpv1"
-IMAGE_INSTALL += " \
+IMAGE_INSTALL_append = " \
  onlpv1 \
  packagegroup-onl-python2 \
 "

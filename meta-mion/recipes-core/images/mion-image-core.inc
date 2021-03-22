@@ -4,14 +4,14 @@ LICENSE = "MIT"
 inherit core-image
 
 # Package groups
-IMAGE_INSTALL += " \
+IMAGE_INSTALL_append = " \
     packagegroup-core-boot-mion \
     packagegroup-core-full-cmdline \
     ${@bb.utils.contains('MACHINE_FEATURES', 'tpm2', 'packagegroup-security-tpm2', '', d)} \
 "
 
 # Individual packages not in the packagegroups
-IMAGE_INSTALL += " \
+IMAGE_INSTALL_append = " \
     bind-utils \
     bridge-utils \
     curl \
