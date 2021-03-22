@@ -5,7 +5,7 @@ LICENSE = "MIT"
 
 require mion-host-core.inc
 
-IMAGE_INSTALL += " \
+IMAGE_INSTALL_append = " \
     srunc \
     preconfig-guests \
 "

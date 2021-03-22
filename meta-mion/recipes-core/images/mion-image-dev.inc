@@ -1,7 +1,7 @@
 SUMMARY = "mion dev packages"
 LICENSE = "MIT"
 
-IMAGE_INSTALL += " \
+IMAGE_INSTALL_append = " \
     ccache \
     dmidecode \
     git \
