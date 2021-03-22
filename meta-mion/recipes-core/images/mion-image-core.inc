@@ -13,11 +13,9 @@ IMAGE_INSTALL += " \
 # Individual packages not in the packagegroups
 IMAGE_INSTALL += " \
     bind-utils \
-    binutils \
     bridge-utils \
     curl \
     dnsmasq \
-    dmidecode \
     efibootmgr \
     findutils \
     glibc \
@@ -33,7 +31,6 @@ IMAGE_INSTALL += " \
     parted \
     pciutils \
     rsync \
-    strace \
     tzdata \
     usbutils \
     util-linux-blkid \
