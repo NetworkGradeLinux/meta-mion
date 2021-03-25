@@ -15,7 +15,6 @@ IMAGE_INSTALL_append = " \
     bind-utils \
     bridge-utils \
     curl \
-    dnsmasq \
     efibootmgr \
     findutils \
     glibc \
@@ -31,6 +30,8 @@ IMAGE_INSTALL_append = " \
     parted \
     pciutils \
     rsync \
+    tmux \
+    tree \
     tzdata \
     usbutils \
     util-linux-blkid \
