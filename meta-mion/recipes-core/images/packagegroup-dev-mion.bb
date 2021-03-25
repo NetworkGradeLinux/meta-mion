@@ -11,6 +11,7 @@ RDEPENDS_${PN} = "\
     dmidecode \
     git \
     kernel-devsrc \
+    ldd \
     m4 \
     meson \
     ninja \
@@ -19,3 +20,5 @@ RDEPENDS_${PN} = "\
 "
 
 #RRECOMMENDS_${PN} = ""
+
+EXTRA_IMAGE_FEATURES += "debug-tweaks dbg-pkgs tools-debug tools-profile"
