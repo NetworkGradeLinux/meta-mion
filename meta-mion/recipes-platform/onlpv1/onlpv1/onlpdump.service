@@ -3,7 +3,7 @@ Description=onlpdump platform manager daemon
 After=network.target
 
 [Service]
-ExecStart=@BINDIR@/onlpdump -M /run/onlpdump.pid
+ExecStart=@BINDIR@/onlpd -M /run/onlpdump.pid
 PIDFile=/run/onlpdump.pid
 Type=simple
 

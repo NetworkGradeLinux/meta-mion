@@ -274,6 +274,10 @@ do_install() {
     mv ${D}${libdir}/libonlp-platform-defaults.so ${D}${libdir}/libonlp-platform-defaults.so.1
     ln -r -s ${D}${libdir}/libonlp-platform-defaults.so.1 ${D}${libdir}/libonlp-platform-defaults.so
 
+    # install onlpd
+    install -d ${D}/bin
+    install -m 0755 packages/base/any/onlp/builds/onlpd/BUILD/${ONL_DEBIAN_SUITE}/${TOOLCHAIN}/bin/onlpd ${D}/bin 
+
     # onlpdump service file
     install -d ${D}${systemd_unitdir}/system
     install -m 0644 ${WORKDIR}/onlpdump.service ${D}${systemd_unitdir}/system
@@ -288,7 +292,7 @@ do_install() {
     install -m 0644 ${WORKDIR}/baseconf.service ${D}${systemd_unitdir}/system
 
     # fix up bindir and sysconfdir
-    sed -i -e 's,@BINDIR@,${bindir},g' \
+    sed -i -e 's,@BINDIR@,/bin,g' \
          ${D}${systemd_unitdir}/system/*.service
     sed -i -e 's,@SYSCONFDIR@,${sysconfdir},g' \
          ${D}${systemd_unitdir}/system/*.service
@@ -316,5 +320,6 @@ FILES_${PN} = "${libdir}/python${PYTHON_MAJMIN} \
     ${libdir}/python${PYTHON_MAJMIN}/onlp/sff \
     /lib/platform-config/ \
     /lib/${ONIE_ARCH}-linux-gnu \
+    /bin/ \
 "
 
