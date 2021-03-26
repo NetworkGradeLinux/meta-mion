@@ -9,5 +9,6 @@ OS_RELEASE_FIELDS_append_mion = " \
     "
 
 HOME_URL = "http://mion.io/"
-BUILD_ID = "${MION_BUILD_ID}"
+BUILD_ID = "${DISTRO_VERSION} ${DATETIME}"
+BUILD_ID[vardepsexclude] = "DATETIME"
 MION_MACHINE = "${MACHINE}"
