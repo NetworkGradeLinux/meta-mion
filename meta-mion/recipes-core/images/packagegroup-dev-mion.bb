@@ -8,7 +8,6 @@ inherit packagegroup
 
 RDEPENDS_${PN} = "\
     ccache \
-    dmidecode \
     git \
     kernel-devsrc \
     ldd \

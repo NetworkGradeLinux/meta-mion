@@ -15,6 +15,7 @@ IMAGE_INSTALL_append = " \
     bind-utils \
     bridge-utils \
     curl \
+    dmidecode \
     efibootmgr \
     findutils \
     glibc \
