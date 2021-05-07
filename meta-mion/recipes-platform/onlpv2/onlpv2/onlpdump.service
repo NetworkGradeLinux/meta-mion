@@ -4,6 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=@BINDIR@/onlps -M /run/onlpdump.pid
+TimeoutStopSec=1
 PIDFile=/run/onlpdump.pid
 Type=simple
 
