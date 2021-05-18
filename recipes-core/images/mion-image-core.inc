@@ -15,6 +15,7 @@ IMAGE_INSTALL_append = " \
     bind-utils \
     bridge-utils \
     curl \
+    containerd-opencontainers \
     dmidecode \
     efibootmgr \
     findutils \
@@ -31,6 +32,7 @@ IMAGE_INSTALL_append = " \
     parted \
     pciutils \
     rsync \
+    runc-opencontainers \
     tmux \
     tree \
     tzdata \
