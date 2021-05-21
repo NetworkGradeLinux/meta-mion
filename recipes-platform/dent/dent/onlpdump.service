@@ -1,0 +1,12 @@
+[Unit]
+Description=onlpdump platform manager daemon
+After=network.target
+
+[Service]
+ExecStart=@BINDIR@/onlpd -M /run/onlpdump.pid
+TimeoutStopSec=1
+PIDFile=/run/onlpdump.pid
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
