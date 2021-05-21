@@ -14,7 +14,7 @@ IMAGE_FEATURES[validitems] += "secureboot"
 do_bundle[depends] += "mc::${MCNAME}:virtual/kernel:do_deploy"
 
 # Uncomment the following for initramfs only boot
-#INSTALL_TYPE = "initramfs"
+# INSTALL_TYPE = "initramfs"
 INSTALL_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_BASENAME}-${MACHINE}.tar.xz"
 INSTALL_KERNEL = "${DEPLOY_DIR_IMAGE}/bzImage"
 INSTALL_INITRD = "${IMGDEPLOYDIR}/${IMAGE_BASENAME}-${MACHINE}.cpio.gz"
@@ -59,10 +59,9 @@ do_bundle () {
             [ ${SECURE_BOOT_ENABLED} = "true" ] && bbfatal "Secure boot requires initramfs install"
             cp "${INSTALL_ROOTFS}" "${ONIEIMAGE_DIR_INSTALL}/rootfs.tar.xz"
         fi
-    elif [ "${TARGET_ARCH}" = "arm" ]; then #FIXME!!
-        bbfatal "ARM installation not implemented!!"
-        #INSTALL_SCRIPT="${WORKDIR}/u-boot-env/install.sh"
-        #cp "${INSTALL_FILE}" "${ONIEIMAGE_DIR_INSTALL}/fitImage-mion.bin"
+    elif [ "${TARGET_ARCH}" = "arm" ] || [ "${TARGET_ARCH}" = "aarch64" ]; then #FIXME!!
+        INSTALL_SCRIPT="${WORKDIR}/u-boot-env/install.sh"
+	cp "${DEPLOY_DIR_IMAGE}/fitImage-${IMAGE_BASENAME}-${MACHINE}-${MACHINE}" "${ONIEIMAGE_DIR_INSTALL}/fitImage-mion.bin"
     else
         bbfatal "Unable to parse TARGET_ARCH"
     fi

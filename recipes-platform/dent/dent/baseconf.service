@@ -1,0 +1,10 @@
+[Unit]
+Description=ONLP Baseconfig Initialisation
+
+[Service]
+Type=oneshot
+ExecStart=@SYSCONFDIR@/baseconf/onl-platform-baseconf.py
+
+[Install]
+WantedBy=multi-user.target
+

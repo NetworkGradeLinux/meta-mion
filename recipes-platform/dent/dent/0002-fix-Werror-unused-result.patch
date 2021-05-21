@@ -1,0 +1,48 @@
+From 520cfee52f984009a3f8c260e297582245189756 Mon Sep 17 00:00:00 2001
+From: Tobias Jungel <tobias.jungel@bisdn.de>
+Date: Mon, 8 Apr 2019 22:59:15 +0200
+Subject: [PATCH 02/12] fix -Werror=unused-result
+
+---
+ .../base/any/onlp/src/onlp/module/src/platform_manager.c    | 2 +-
+ packages/base/any/onlp/src/onlplib/module/src/file_uds.c    | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/packages/base/any/onlp/src/onlp/module/src/platform_manager.c b/packages/base/any/onlp/src/onlp/module/src/platform_manager.c
+index 75054d6f..8f978edb 100644
+--- a/packages/base/any/onlp/src/onlp/module/src/platform_manager.c
++++ b/packages/base/any/onlp/src/onlp/module/src/platform_manager.c
+@@ -264,7 +264,7 @@ onlp_sys_platform_manage_stop(int block)
+     if(control__.eventfd > 0) {
+         uint64_t zero = 1;
+         /* Tell the thread to exit */
+-        write(control__.eventfd, &zero, sizeof(zero));
++        (void)!write(control__.eventfd, &zero, sizeof(zero));
+ 
+         if(block) {
+             onlp_sys_platform_manage_join();
+diff --git a/packages/base/any/onlp/src/onlplib/module/src/file_uds.c b/packages/base/any/onlp/src/onlplib/module/src/file_uds.c
+index bd344d89..b04ae180 100644
+--- a/packages/base/any/onlp/src/onlplib/module/src/file_uds.c
++++ b/packages/base/any/onlp/src/onlplib/module/src/file_uds.c
+@@ -54,13 +54,15 @@ static void
+ eventfd_write__(int fd)
+ {
+     uint64_t val = 1;
+-    write(fd, &val, sizeof(val));
++    ssize_t ignored __attribute__((unused));
++    ignored = write(fd, &val, sizeof(val));
+ }
+ static void
+ eventfd_read__(int fd)
+ {
+     uint64_t val;
+-    read(fd, &val, sizeof(val));
++    ssize_t ignored __attribute__((unused));
++    ignored = read(fd, &val, sizeof(val));
+ }
+ 
+ 
+-- 
+2.20.1
+
