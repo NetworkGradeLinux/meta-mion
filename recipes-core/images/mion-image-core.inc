@@ -47,6 +47,8 @@ IMAGE_FEATURES += "ssh-server-openssh dev-pkgs"
 
 IMAGE_FEATURES_remove = "doc-pkgs"
 
+EXTRA_IMAGE_FEATURES += " package-management"
+
 PREFERRED_PROVIDER_virtual/base-utils = "packagegroup-core-base-utils"
 VIRTUAL-RUNTIME_base-utils = "packagegroup-core-base-utils"
 VIRTUAL-RUNTIME_base-utils-hwclock = "util-linux-hwclock"
