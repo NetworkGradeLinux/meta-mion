@@ -11,10 +11,6 @@ SRC_URI = "file://grub-env/install.sh \
 
 IMAGE_FEATURES[validitems] += "secureboot"
 
-do_bundle[depends] += "mc::${MCNAME}:virtual/kernel:do_deploy"
-
-# Uncomment the following for initramfs only boot
-# INSTALL_TYPE = "initramfs"
 INSTALL_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_BASENAME}-${MACHINE}.tar.xz"
 INSTALL_KERNEL = "${DEPLOY_DIR_IMAGE}/bzImage"
 INSTALL_INITRD = "${IMGDEPLOYDIR}/${IMAGE_BASENAME}-${MACHINE}.cpio.gz"
@@ -46,7 +42,7 @@ python () {
         d.delVarFlag("do_unpack", "noexec")
 }
 
-do_bundle () {
+do_onie_bundle () {
     mkdir --parent "${ONIEIMAGE_DIR_INSTALL}"
 
     # Install script and install file depend on the ARCH
@@ -90,9 +86,9 @@ do_bundle () {
     cat "${ONIEIMAGE_PAYLOAD_FILE}" >> "${ONIEIMAGE_OUTPUT_FILE}"
     
     . ${ONIEIMAGE_MACHINE_CONF}
-    install -m 0644 ${ONIEIMAGE_OUTPUT_FILE} ${IMGDEPLOYDIR}/onie-installer-${PLATFORM}.bin
-    cd ${IMGDEPLOYDIR}
+    install -m 0644 ${ONIEIMAGE_OUTPUT_FILE} ${DEPLOY_DIR_IMAGE}/onie-installer-${PLATFORM}.bin
+    cd ${DEPLOY_DIR_IMAGE}
     ln -sf ./onie-installer-${PLATFORM}.bin ./onie-installer.bin
 }
 
-IMAGE_POSTPROCESS_COMMAND_append=" do_unpack; do_bundle; "
+addtask do_onie_bundle after do_image_complete before do_build
