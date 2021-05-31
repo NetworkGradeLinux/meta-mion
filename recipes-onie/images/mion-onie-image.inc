@@ -8,17 +8,19 @@ SRC_URI = "file://grub-env/install.sh \
            file://u-boot-env/install.sh \
            file://sharch_body.sh \
 	   "
-
 IMAGE_FEATURES[validitems] += "secureboot"
 
 INSTALL_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_BASENAME}-${MACHINE}.tar.xz"
 INSTALL_KERNEL = "${DEPLOY_DIR_IMAGE}/bzImage"
 INSTALL_INITRD = "${IMGDEPLOYDIR}/${IMAGE_BASENAME}-${MACHINE}.cpio.gz"
 
+#Never build wic here, ever
+IMAGE_FSTYPES_remove ="wic"
+
 ONIEIMAGE_DIR ?= "${S}"
 ONIEIMAGE_DIR_INSTALL = "${ONIEIMAGE_DIR}/installer/"
 
-ONIEIMAGE_SHELL_ARCHIVE_BODY ?= "${WORKDIR}/sharch_body.sh"
+ONIEIMAGE_SHELL_ARCHIVE_BODY ?= "${THISDIR}/files/sharch_body.sh"
 ONIEIMAGE_CONF_DIR ?= "${MIONBASE}/meta-mion-bsp/meta-mion-${ONIE_VENDOR}/conf/onie-profiles/${MACHINE}/${ONLPV}"
 ONIEIMAGE_MACHINE_CONF ?= "${ONIEIMAGE_CONF_DIR}/machine.conf"
 ONIEIMAGE_PLATFORM_CONF ?= "${ONIEIMAGE_CONF_DIR}/platform.conf"
@@ -42,7 +44,7 @@ do_onie_bundle () {
 
     # Install script and install file depend on the ARCH
     if [ "${TARGET_ARCH}" = "x86_64" ]; then
-        INSTALL_SCRIPT="${WORKDIR}/grub-env/install.sh"
+        INSTALL_SCRIPT="${THISDIR}/files/grub-env/install.sh"
         if [ "${INSTALL_TYPE}" = "initramfs" ]; then
             cp "${INSTALL_KERNEL}" "${ONIEIMAGE_DIR_INSTALL}/"
             cp "${INSTALL_INITRD}" "${ONIEIMAGE_DIR_INSTALL}/mion.initrd"
@@ -50,8 +52,8 @@ do_onie_bundle () {
             [ "${SECURE_BOOT_ENABLED}" = "true" ] && bbfatal "Secure boot requires initramfs install"
             cp "${INSTALL_ROOTFS}" "${ONIEIMAGE_DIR_INSTALL}/rootfs.tar.xz"
         fi
-    elif [ "${TARGET_ARCH}" = "arm" ] || [ "${TARGET_ARCH}" = "aarch64" ]; then #FIXME!!
-        INSTALL_SCRIPT="${WORKDIR}/u-boot-env/install.sh"
+    elif [ "${TARGET_ARCH}" = "arm" ] || [ "${TARGET_ARCH}" = "aarch64" ]; then
+        INSTALL_SCRIPT="${THISDIR}/files/u-boot-env/install.sh"
 	cp "${DEPLOY_DIR_IMAGE}/fitImage-${IMAGE_BASENAME}-${MACHINE}-${MACHINE}" "${ONIEIMAGE_DIR_INSTALL}/fitImage-mion.bin"
     else
         bbfatal "Unable to parse TARGET_ARCH"
