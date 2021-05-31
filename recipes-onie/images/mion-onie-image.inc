@@ -37,11 +37,6 @@ DEPENDS += "${@ "sbsigntool-native" if bb.utils.to_boolean(d.getVar('SECURE_BOOT
 IMAGE_FSTYPES += "tar.xz"
 IMAGE_FSTYPES += "${@ "cpio.gz" if bb.utils.to_boolean(d.getVar('SECURE_BOOT_ENABLED')) else "" }"
 
-python () {
-        d.delVarFlag("do_fetch", "noexec")
-        d.delVarFlag("do_unpack", "noexec")
-}
-
 do_onie_bundle () {
     mkdir --parent "${ONIEIMAGE_DIR_INSTALL}"
 
@@ -52,7 +47,7 @@ do_onie_bundle () {
             cp "${INSTALL_KERNEL}" "${ONIEIMAGE_DIR_INSTALL}/"
             cp "${INSTALL_INITRD}" "${ONIEIMAGE_DIR_INSTALL}/mion.initrd"
         else # standard install
-            [ ${SECURE_BOOT_ENABLED} = "true" ] && bbfatal "Secure boot requires initramfs install"
+            [ "${SECURE_BOOT_ENABLED}" = "true" ] && bbfatal "Secure boot requires initramfs install"
             cp "${INSTALL_ROOTFS}" "${ONIEIMAGE_DIR_INSTALL}/rootfs.tar.xz"
         fi
     elif [ "${TARGET_ARCH}" = "arm" ] || [ "${TARGET_ARCH}" = "aarch64" ]; then #FIXME!!
@@ -62,7 +57,7 @@ do_onie_bundle () {
         bbfatal "Unable to parse TARGET_ARCH"
     fi
 
-    if [ ${SECURE_BOOT_ENABLED} = "true" ]; then
+    if [ "${SECURE_BOOT_ENABLED}" = "true" ]; then
         sbsign --key ${SECURE_BOOT_SIGNING_KEY} --cert ${SECURE_BOOT_SIGNING_CERT} ${ONIEIMAGE_DIR_INSTALL}/bzImage
         mv ${ONIEIMAGE_DIR_INSTALL}/bzImage.signed ${ONIEIMAGE_DIR_INSTALL}/bzImage
     fi
@@ -91,4 +86,7 @@ do_onie_bundle () {
     ln -sf ./onie-installer-${PLATFORM}.bin ./onie-installer.bin
 }
 
+SSTATE_SKIP_CREATION_task-onie-bundle = '0'
+
 addtask do_onie_bundle after do_image_complete before do_build
+
