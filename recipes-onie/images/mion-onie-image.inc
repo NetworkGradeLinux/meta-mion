@@ -39,6 +39,8 @@ DEPENDS += "${@ "sbsigntool-native" if bb.utils.to_boolean(d.getVar('SECURE_BOOT
 IMAGE_FSTYPES += "tar.xz"
 IMAGE_FSTYPES += "${@ "cpio.gz" if bb.utils.to_boolean(d.getVar('SECURE_BOOT_ENABLED')) else "" }"
 
+do_onie_bundle[depends] += "virtual/kernel:do_deploy"
+
 do_onie_bundle () {
     mkdir --parent "${ONIEIMAGE_DIR_INSTALL}"
 
