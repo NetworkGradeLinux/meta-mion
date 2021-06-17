@@ -56,7 +56,7 @@ do_onie_bundle () {
         fi
     elif [ "${TARGET_ARCH}" = "arm" ] || [ "${TARGET_ARCH}" = "aarch64" ]; then
         INSTALL_SCRIPT="${THISDIR}/files/u-boot-env/install.sh"
-	cp "${DEPLOY_DIR_IMAGE}/fitImage-${IMAGE_BASENAME}-${MACHINE}-${MACHINE}" "${ONIEIMAGE_DIR_INSTALL}/fitImage-mion.bin"
+        cp "${DEPLOY_DIR_IMAGE}/fitImage-${IMAGE_BASENAME}-${MACHINE}-${MACHINE}" "${ONIEIMAGE_DIR_INSTALL}/fitImage-mion.bin"
     else
         bbfatal "Unable to parse TARGET_ARCH"
     fi
@@ -68,10 +68,23 @@ do_onie_bundle () {
 
     # Generate the payload tar file
     cp "${INSTALL_SCRIPT}" "${ONIEIMAGE_PLATFORM_CONF}" "${ONIEIMAGE_MACHINE_CONF}" "${ONIEIMAGE_DIR_INSTALL}"
-    # Set the mion version in the grub menu
-    sed -i -e "s/MION_VERSION=/MION_VERSION=\"${DISTRO_VERSION}\"/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
-    sed -i -e "s/ROOTFS_SIZE_MB=/ROOTFS_SIZE_MB=${MION_PART_SIZE_MB}/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
-    sed -i -e "s/INSTALL_TYPE=/INSTALL_TYPE=\"${INSTALL_TYPE}\"/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+    if [ "${TARGET_ARCH}" = "x86_64" ]; then
+        # Set the mion version in the grub menu
+        sed -i -e "s/MION_VERSION=/MION_VERSION=\"${DISTRO_VERSION}\"/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+        sed -i -e "s/ROOTFS_SIZE_MB=/ROOTFS_SIZE_MB=${MION_PART_SIZE_MB}/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+        sed -i -e "s/INSTALL_TYPE=/INSTALL_TYPE=\"${INSTALL_TYPE}\"/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+    elif [ "${TARGET_ARCH}" = "arm" ] || [ "${TARGET_ARCH}" = "aarch64" ]; then
+        # get offsets/size
+        offsets=$(PYTHONPATH=${MIONBASE}/contrib/lib/ ${MIONBASE}/contrib/pyfit offset ${ONIEIMAGE_DIR_INSTALL}/fitImage-mion.bin --initrd)
+        offset=$(echo $offsets|cut -d" " -f1)
+        size=$(expr $(echo $offsets|cut -d" " -f2) - $offset)
+        sed -i -e "s/MIONARCH/${TARGET_ARCH}/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+        sed -i -e "s/MIONONLVERSION/${DISTRO_VERSION}/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+        sed -i -e "s/MIONINITRD_ARCHIVE/${INITRAMFS_IMAGE}/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+        sed -i -e "s/MIONINITRD_OFFSET/$offset/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+        sed -i -e "s/MIONINITRD_SIZE/$size/" "${ONIEIMAGE_DIR_INSTALL}/install.sh"
+    fi
+   
     tar -C "${ONIEIMAGE_DIR}" -cf "${ONIEIMAGE_PAYLOAD_FILE}" "installer"
 
     # Populate the shell archive body
