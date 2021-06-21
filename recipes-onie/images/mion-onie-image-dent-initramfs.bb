@@ -3,6 +3,7 @@ require recipes-core/images/mion-image-core.inc
 ONLPV="dent"
 IMAGE_INSTALL += " \
  ${ONLPV} \
+ ifupdown2 \
  packagegroup-onl-python2 \
 "
 
