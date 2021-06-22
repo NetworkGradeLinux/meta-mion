@@ -40,7 +40,7 @@ inherit systemd
 SYSTEMD_SERVICE_${PN} = "onlpdump.service"
 SYSTEMD_AUTO_ENABLE = "enable"
 
-DEPENDS = "i2c-tools python libedit libzip"
+DEPENDS = "ifupdown2 i2c-tools python libedit libzip"
 
 S = "${WORKDIR}/git"
 PV = "1.1+git${SRCPV}"
