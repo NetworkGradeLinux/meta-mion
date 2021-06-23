@@ -33,6 +33,7 @@ IMAGE_INSTALL_append = " \
     pciutils \
     rsync \
     runc-opencontainers \
+    smartmontools \
     tmux \
     tree \
     tzdata \
