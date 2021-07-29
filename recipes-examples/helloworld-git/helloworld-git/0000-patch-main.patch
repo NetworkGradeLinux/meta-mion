@@ -1,0 +1,9 @@
+--- a/main.cpp	2021-07-29 11:53:21.949721945 +0100
++++ b/main.cpp	2021-07-29 11:54:09.603073586 +0100
+@@ -2,5 +2,5 @@
+ 
+ auto main() -> int
+ {
+-    std::cout << "Hello world\n";
++    std::cout << "Hello world (patched!)\n";
+ }
