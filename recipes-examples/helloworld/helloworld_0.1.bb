@@ -72,7 +72,7 @@ CXXFLAGS += " -std=c++17 -O2"
 # C pre-processor!
 
 do_compile() {
-    ${CXX} ${CPPFLAGS} ${LDFLAGS} ${WORKDIR}/main.cpp -o ${B}/helloworld
+    ${CXX} ${CXXFLAGS} ${WORKDIR}/main.cpp ${LDFLAGS} -o ${B}/helloworld
 }
 
 

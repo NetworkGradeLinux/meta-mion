@@ -44,11 +44,11 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c6640a3f1119eaec9540d5a4c69d5aef"
 S = "${WORKDIR}"
 
 
-#CPPFLAGS += " -std=c++17 -O2"
+CXXFLAGS += " -std=c++17 -O2"
 
 
 do_compile() {
-    ${CXX} ${CPPFLAGS} ${LDFLAGS} ${S}/main.cpp -o ${B}/helloworld_tar
+    ${CXX} ${CXXFLAGS} ${S}/main.cpp ${LDFLAGS} -o ${B}/helloworld_tar
 }
 
 do_install() {

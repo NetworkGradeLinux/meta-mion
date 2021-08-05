@@ -42,7 +42,7 @@ CXXFLAGS += " -std=c++17 -O2"
 
 
 do_compile() {
-    ${CXX} ${CXXFLAGS} ${LDFLAGS} ${S}/main.cpp -o ${B}/helloworld_patched
+    ${CXX} ${CXXFLAGS} ${S}/main.cpp ${LDFLAGS} -o ${B}/helloworld_patched
 }
 
 do_install() {

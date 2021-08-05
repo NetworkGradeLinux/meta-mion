@@ -23,7 +23,7 @@ SRCREV = "${AUTOREV}"
 CXXFLAGS += " -std=c++17 -O2"
 
 do_compile() {
-    ${CXX} ${CPPFLAGS} ${LDFLAGS} ${S}/main.cpp -o ${B}/helloworld_git
+    ${CXX} ${CXXLAGS} ${S}/main.cpp ${LDFLAGS} -o ${B}/helloworld_git
 }
 
 do_install() {
